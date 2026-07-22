@@ -4,39 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>瑋瑋專屬財務計算機 | 專業理財規劃工具</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background-color: #f7f3ed;
-            color: #3e3a36;
-        }
-        .tab-active {
-            background-color: #b65a3c;
-            color: #ffffff !important;
-            box-shadow: 0 4px 12px rgba(182, 90, 60, 0.15);
-        }
+        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f7f3ed; color: #3e3a36; }
+        .tab-active { background-color: #b65a3c; color: #ffffff !important; box-shadow: 0 4px 12px rgba(182, 90, 60, 0.15); }
         .interactive-cell { transition: all 0.2s ease-in-out; }
-        .interactive-cell:hover {
-            transform: scale(1.12);
-            color: #b65a3c;
-            font-weight: 700;
-            background-color: #eae3d5;
-            box-shadow: 0 4px 10px rgba(182, 90, 60, 0.1);
-            z-index: 10;
-        }
+        .interactive-cell:hover { transform: scale(1.12); color: #b65a3c; font-weight: 700; background-color: #eae3d5; box-shadow: 0 4px 10px rgba(182, 90, 60, 0.1); z-index: 10; }
         .interactive-row:hover { background-color: #fcfaf7; }
     </style>
 </head>
 <body class="min-h-screen py-10 px-4 sm:px-6 lg:px-8">
     <div class="max-w-5xl mx-auto">
-        
-        <!-- Header Section -->
         <header class="text-center mb-10">
             <div class="inline-flex items-center justify-center p-3.5 bg-[#b65a3c] rounded-full shadow-md mb-4 text-white">
                 <i class="fa-solid fa-calculator text-xl"></i>
@@ -45,237 +25,277 @@
             <p class="text-[#6e665e] text-sm mt-2 font-medium">Financial Calculator · 公勝保經瑋瑋為您規劃的智能理財工具</p>
         </header>
 
-        <!-- Main Card Container -->
         <div class="bg-[#fcfaf7] border border-[#e3dac9] rounded-3xl p-6 sm:p-8 shadow-xl shadow-stone-200/50">
             
-            <!-- Tabs Navigation -->
+            <!-- 導覽列 -->
             <div class="flex flex-wrap gap-2.5 mb-8 border-b border-[#e9e2d5] pb-5 justify-center">
-                <button onclick="switchTab('winner')" id="tab-winner" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1 tab-active">
-                    <i class="fa-solid fa-crown"></i> 贏家配置
-                </button>
-                <button onclick="switchTab('cashflow')" id="tab-cashflow" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1">
-                    <i class="fa-solid fa-scale-balanced"></i> 借貸現金流
-                </button>
-                <button onclick="switchTab('compound')" id="tab-compound" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1">
-                    <i class="fa-solid fa-chart-line"></i> 複利計算
-                </button>
-                <button onclick="switchTab('regular')" id="tab-regular" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1">
-                    <i class="fa-solid fa-calendar-days"></i> 定期定額
-                </button>
-                <button onclick="switchTab('mortgage')" id="tab-mortgage" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1">
-                    <i class="fa-solid fa-house-chimney"></i> 房貸計算
-                </button>
+                <button onclick="switchTab('winner')" id="tab-winner" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1 tab-active"><i class="fa-solid fa-crown"></i> 贏家配置</button>
+                <button onclick="switchTab('cashflow')" id="tab-cashflow" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1"><i class="fa-solid fa-scale-balanced"></i> 借貸現金流</button>
+                <button onclick="switchTab('compound')" id="tab-compound" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1"><i class="fa-solid fa-chart-line"></i> 複利計算</button>
+                <button onclick="switchTab('regular')" id="tab-regular" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1"><i class="fa-solid fa-calendar-days"></i> 定期定額</button>
+                <button onclick="switchTab('mortgage')" id="tab-mortgage" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1"><i class="fa-solid fa-house-chimney"></i> 房貸計算</button>
+                <button onclick="switchTab('retirement')" id="tab-retirement" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1"><i class="fa-solid fa-bullseye"></i> 退休規劃</button>
+                <button onclick="switchTab('inflation')" id="tab-inflation" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1"><i class="fa-solid fa-temperature-high"></i> 通膨影響</button>
             </div>
 
-            <!-- Tab Contents -->
-            
-            <!-- ================= NEW: 借貸現金流 (Cash Flow) ================= -->
-            <div id="content-cashflow" class="tab-content hidden">
-                <h2 class="text-xl font-bold mb-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">
-                    借貸與投資現金流相抵試算
-                </h2>
-                <p class="text-xs text-[#8c8275] mb-6 pl-4">整合各項貸款與自有資金，試算單筆投入配息基金後的每月實質現金流壓力。</p>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- 左側：資金來源與月付金輸入 -->
-                    <div class="lg:col-span-2 space-y-4">
-                        <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5">
-                            <h3 class="text-sm font-bold text-[#5c4a3c] mb-4 border-b border-[#e3dac9] pb-2">1. 設定您的資金池與借貸成本</h3>
-                            
-                            <!-- 資金表頭 -->
-                            <div class="grid grid-cols-12 gap-2 text-xs font-bold text-[#6e665e] mb-2 px-1 hidden sm:grid">
-                                <div class="col-span-4">資金來源項目</div>
-                                <div class="col-span-4">投入本金金額 (NT$)</div>
-                                <div class="col-span-4">每月需繳本息 (NT$)</div>
-                            </div>
-
-                            <!-- 自有資金 -->
-                            <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center mb-3">
-                                <div class="sm:col-span-4 text-sm font-medium text-[#8c4830]"><i class="fa-solid fa-piggy-bank w-5"></i> 自有資金投入</div>
-                                <div class="sm:col-span-4"><input type="number" id="cf-own-amt" value="1000000" class="w-full bg-white border border-[#e3dac9] rounded-lg px-3 py-2 text-sm focus:border-[#b65a3c]" placeholder="輸入金額"></div>
-                                <div class="sm:col-span-4 text-xs text-[#8c8275] pl-2">（無月付金成本）</div>
-                            </div>
-
-                            <!-- 一般房貸 -->
-                            <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center mb-3">
-                                <div class="sm:col-span-4 text-sm font-medium text-[#5c534c]"><i class="fa-solid fa-house w-5"></i> 一般房貸</div>
-                                <div class="sm:col-span-4"><input type="number" id="cf-mortgage-amt" value="0" class="w-full bg-white border border-[#e3dac9] rounded-lg px-3 py-2 text-sm focus:border-[#b65a3c]" placeholder="房貸可挪用金額"></div>
-                                <div class="sm:col-span-4"><input type="number" id="cf-mortgage-pay" value="0" class="w-full bg-white border border-[#e3dac9] rounded-lg px-3 py-2 text-sm focus:border-[#b65a3c]" placeholder="每月本息"></div>
-                            </div>
-
-                            <!-- 理財型房貸 -->
-                            <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center mb-3">
-                                <div class="sm:col-span-4 text-sm font-medium text-[#5c534c]"><i class="fa-solid fa-building-columns w-5"></i> 理財型房貸</div>
-                                <div class="sm:col-span-4"><input type="number" id="cf-finmortgage-amt" value="2000000" class="w-full bg-white border border-[#e3dac9] rounded-lg px-3 py-2 text-sm focus:border-[#b65a3c]" placeholder="動用金額"></div>
-                                <div class="sm:col-span-4"><input type="number" id="cf-finmortgage-pay" value="5000" class="w-full bg-white border border-[#e3dac9] rounded-lg px-3 py-2 text-sm focus:border-[#b65a3c]" placeholder="每月利息"></div>
-                            </div>
-
-                            <!-- 信用貸款 -->
-                            <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center mb-3">
-                                <div class="sm:col-span-4 text-sm font-medium text-[#5c534c]"><i class="fa-solid fa-hand-holding-dollar w-5"></i> 信用貸款</div>
-                                <div class="sm:col-span-4"><input type="number" id="cf-credit-amt" value="0" class="w-full bg-white border border-[#e3dac9] rounded-lg px-3 py-2 text-sm focus:border-[#b65a3c]" placeholder="信貸金額"></div>
-                                <div class="sm:col-span-4"><input type="number" id="cf-credit-pay" value="0" class="w-full bg-white border border-[#e3dac9] rounded-lg px-3 py-2 text-sm focus:border-[#b65a3c]" placeholder="每月本息"></div>
-                            </div>
-
-                            <!-- 保單貸款 -->
-                            <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center mb-3">
-                                <div class="sm:col-span-4 text-sm font-medium text-[#5c534c]"><i class="fa-solid fa-file-contract w-5"></i> 保單貸款</div>
-                                <div class="sm:col-span-4"><input type="number" id="cf-policy-amt" value="0" class="w-full bg-white border border-[#e3dac9] rounded-lg px-3 py-2 text-sm focus:border-[#b65a3c]" placeholder="保貸金額"></div>
-                                <div class="sm:col-span-4"><input type="number" id="cf-policy-pay" value="0" class="w-full bg-white border border-[#e3dac9] rounded-lg px-3 py-2 text-sm focus:border-[#b65a3c]" placeholder="每月利息"></div>
-                            </div>
-
-                            <!-- 其他貸款 -->
-                            <div class="grid grid-cols-1 sm:grid-cols-12 gap-3 items-center mb-1">
-                                <div class="sm:col-span-4 text-sm font-medium text-[#5c534c]"><i class="fa-solid fa-ellipsis w-5"></i> 其他貸款</div>
-                                <div class="sm:col-span-4"><input type="number" id="cf-other-amt" value="0" class="w-full bg-white border border-[#e3dac9] rounded-lg px-3 py-2 text-sm focus:border-[#b65a3c]" placeholder="其他金額"></div>
-                                <div class="sm:col-span-4"><input type="number" id="cf-other-pay" value="0" class="w-full bg-white border border-[#e3dac9] rounded-lg px-3 py-2 text-sm focus:border-[#b65a3c]" placeholder="每月本息"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 右側：配息設定與計算按鈕 -->
-                    <div class="space-y-4">
-                        <div class="bg-[#fdfdfd] border border-[#e3dac9] rounded-2xl p-5 shadow-sm">
-                            <h3 class="text-sm font-bold text-[#5c4a3c] mb-4 border-b border-[#e3dac9] pb-2">2. 設定基金投資效益</h3>
-                            
-                            <div class="mb-4">
-                                <label class="block text-xs font-bold text-[#6e665e] mb-1">目標基金年配息率 (%)</label>
-                                <div class="flex items-center gap-2">
-                                    <input type="number" id="cf-fund-rate" value="8" step="0.5" class="w-full bg-white border border-[#b65a3c] rounded-lg px-4 py-3 text-lg font-bold text-[#b65a3c] focus:outline-none text-center shadow-inner">
-                                </div>
-                                <span class="text-[11px] text-[#8c8275] mt-1.5 block">例如：輸入 6 代表年化配息率 6%</span>
-                            </div>
-
-                            <button onclick="calculateCashFlow()" class="w-full bg-[#b65a3c] hover:bg-[#9c4c30] text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md mt-2 flex justify-center items-center gap-2">
-                                <i class="fa-solid fa-bolt"></i> 一鍵相抵試算
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 現金流輸出結果 -->
-                <div id="cashflow-results-box" class="mt-6 space-y-4 hidden">
+            <!-- 1. 贏家配置 -->
+            <div id="content-winner" class="tab-content">
+                <h2 class="text-xl font-bold mb-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">20%贏家資產配置提案</h2>
+                <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 mb-8">
+                    <h3 class="text-sm font-bold text-[#5c4a3c] mb-4 flex items-center gap-2"><i class="fa-solid fa-bucket text-[#b65a3c]"></i> 第一步：檢視您的人生三桶金</h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <!-- 總本金 -->
-                        <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#5c534c]">
-                            <div class="text-[#6e665e] text-xs font-bold mb-1">匯聚總投資本金</div>
-                            <div class="text-2xl font-bold text-[#5c534c]" id="res-cf-total-principal">NT$0</div>
-                            <span class="text-[#8c8275] text-[10px] block mt-1">借貸與自有資金總和</span>
-                        </div>
-                        <!-- 總月配息 -->
-                        <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#8c7853]">
-                            <div class="text-[#6e665e] text-xs font-bold mb-1">創造每月總配息收入</div>
-                            <div class="text-2xl font-bold text-[#8c7853]" id="res-cf-monthly-income">NT$0</div>
-                            <span class="text-[#8c8275] text-[10px] block mt-1" id="res-cf-rate-hint">依據設定之配息率計算</span>
-                        </div>
-                        <!-- 總月付金 -->
-                        <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#8c4830]">
-                            <div class="text-[#6e665e] text-xs font-bold mb-1">每月總貸款月付成本</div>
-                            <div class="text-2xl font-bold text-[#8c4830]" id="res-cf-monthly-expense">NT$0</div>
-                            <span class="text-[#8c8275] text-[10px] block mt-1">需繳還銀行之本息總和</span>
-                        </div>
+                        <div><label class="block text-xs font-bold mb-1">第一桶：根基防禦 (月)</label><input type="number" id="bucket-1" value="30000" oninput="updateBuckets()" class="w-full bg-white border border-[#e3dac9] rounded-xl px-3 py-2 text-sm"></div>
+                        <div><label class="block text-xs font-bold mb-1">第二桶：靈魂成長 (月)</label><input type="number" id="bucket-2" value="10000" oninput="updateBuckets()" class="w-full bg-white border border-[#e3dac9] rounded-xl px-3 py-2 text-sm"></div>
+                        <div><label class="block text-xs font-bold mb-1">第三桶：日常彈性 (月)</label><input type="number" id="bucket-3" value="15000" oninput="updateBuckets()" class="w-full bg-white border border-[#e3dac9] rounded-xl px-3 py-2 text-sm"></div>
                     </div>
+                    <div class="mt-4 pt-3 border-t flex justify-between text-xs font-bold">
+                        <span>總開銷：<span id="bucket-total" class="text-[#b65a3c]">NT$55,000</span></span>
+                    </div>
+                </div>
+                <div class="bg-white border border-[#e3dac9] rounded-2xl p-5 mb-6">
+                    <div class="mb-6 flex gap-4">
+                        <label class="flex items-center gap-2 text-sm"><input type="radio" name="strategy-type" value="regular" checked onclick="toggleStrategyView()" class="accent-[#b65a3c]"> 定期定額穩健累積</label>
+                        <label class="flex items-center gap-2 text-sm"><input type="radio" name="strategy-type" value="leverage" onclick="toggleStrategyView()" class="accent-[#b65a3c]"> 信貸槓桿加速計畫</label>
+                    </div>
+                    <!-- 定期定額版 -->
+                    <div id="view-winner-regular" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div><label class="block text-xs font-bold mb-1">目前年齡</label><input type="number" id="win-reg-age" value="30" class="w-full border rounded-xl px-3 py-2"></div>
+                            <div><label class="block text-xs font-bold mb-1">每月投入</label><input type="number" id="win-reg-amount" value="15000" class="w-full border rounded-xl px-3 py-2"></div>
+                            <div><label class="block text-xs font-bold mb-1">預期報酬率 (%)</label><input type="number" id="win-reg-rate-text" value="6" class="w-full border rounded-xl px-3 py-2"></div>
+                        </div>
+                        <button onclick="calcWinnerRegular()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl">啟動試算</button>
+                    </div>
+                    <!-- 槓桿版 -->
+                    <div id="view-winner-leverage" class="space-y-4 hidden">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div><label class="block text-xs font-bold mb-1">目前年齡</label><input type="number" id="win-lev-age" value="30" class="w-full border rounded-xl px-3 py-2"></div>
+                            <div><label class="block text-xs font-bold mb-1">信貸金額</label><input type="number" id="win-lev-loan" value="2540000" class="w-full border rounded-xl px-3 py-2"></div>
+                            <div><label class="block text-xs font-bold mb-1">信貸利率(%)</label><input type="number" id="win-lev-loan-rate" value="2.5" class="w-full border rounded-xl px-3 py-2"></div>
+                            <div><label class="block text-xs font-bold mb-1">年配息率(%)</label><input type="number" id="win-lev-payout-rate" value="10" class="w-full border rounded-xl px-3 py-2"></div>
+                        </div>
+                        <div class="flex gap-4 text-xs mt-2">
+                            <label><input type="checkbox" id="chk-use-payout" checked class="accent-[#b65a3c]"> 用配息繳貸款</label>
+                            <label><input type="checkbox" id="chk-reinvest" class="accent-[#b65a3c]"> 收益滾入本金</label>
+                        </div>
+                        <button onclick="calcWinnerLeverage()" class="w-full bg-[#8c4830] text-white py-3 rounded-xl">啟動試算</button>
+                    </div>
+                </div>
+                <div id="winner-results-box" class="hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                        <div class="bg-[#f5efe4] border rounded-2xl p-5 border-l-4 border-[#b65a3c]"><div id="lbl-win-res-1" class="text-xs font-bold">累積資產</div><div id="txt-win-res-1" class="text-2xl font-bold">NT$0</div></div>
+                        <div class="bg-[#f5efe4] border rounded-2xl p-5 border-l-4 border-[#8c7853]"><div id="lbl-win-res-2" class="text-xs font-bold">每月現金流</div><div id="txt-win-res-2" class="text-2xl font-bold">NT$0</div></div>
+                        <div class="bg-[#f5efe4] border rounded-2xl p-5 border-l-4 border-[#5c6e58]"><div id="lbl-win-res-3" class="text-xs font-bold">實質月負擔</div><div id="txt-win-res-3" class="text-2xl font-bold">NT$0</div></div>
+                    </div>
+                    <table class="w-full text-left text-sm border"><thead class="bg-[#eae3d5]"><tr><th class="p-3">時間(年齡)</th><th class="p-3">累積本金/剩餘貸款</th><th class="p-3">累積利益</th><th class="p-3">期末總值</th></tr></thead><tbody id="table-body-winner" class="bg-white divide-y"></tbody></table>
+                </div>
+            </div>
 
-                    <!-- 最終相抵結論大看板 -->
-                    <div id="cf-final-board" class="border-2 rounded-2xl p-6 text-center shadow-lg transition-colors duration-500">
-                        <h3 class="text-sm font-bold mb-2" id="cf-final-title">相抵後每月實質現金流</h3>
-                        <div class="text-4xl font-black tracking-tight mb-2" id="res-cf-net-flow">NT$0</div>
-                        <p class="text-sm font-medium" id="cf-final-desc">分析結果計算中...</p>
+            <!-- 2. 借貸現金流 -->
+            <div id="content-cashflow" class="tab-content hidden">
+                <h2 class="text-xl font-bold mb-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">借貸與投資現金流相抵</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-[#f5efe4] border rounded-2xl p-5 space-y-3">
+                        <div class="grid grid-cols-3 text-xs font-bold mb-2"><div>項目</div><div>總金額</div><div>月繳本息</div></div>
+                        <div class="grid grid-cols-3 gap-2"><div>自有資金</div><div><input type="number" id="cf-own-amt" value="1000000" class="w-full border px-2 py-1"></div><div>(無)</div></div>
+                        <div class="grid grid-cols-3 gap-2"><div>一般房貸</div><div><input type="number" id="cf-mortgage-amt" value="0" class="w-full border px-2 py-1"></div><div><input type="number" id="cf-mortgage-pay" value="0" class="w-full border px-2 py-1"></div></div>
+                        <div class="grid grid-cols-3 gap-2"><div>理財房貸</div><div><input type="number" id="cf-finmortgage-amt" value="2000000" class="w-full border px-2 py-1"></div><div><input type="number" id="cf-finmortgage-pay" value="5000" class="w-full border px-2 py-1"></div></div>
+                        <div class="grid grid-cols-3 gap-2"><div>信用貸款</div><div><input type="number" id="cf-credit-amt" value="0" class="w-full border px-2 py-1"></div><div><input type="number" id="cf-credit-pay" value="0" class="w-full border px-2 py-1"></div></div>
+                        <div class="grid grid-cols-3 gap-2"><div>保單貸款</div><div><input type="number" id="cf-policy-amt" value="0" class="w-full border px-2 py-1"></div><div><input type="number" id="cf-policy-pay" value="0" class="w-full border px-2 py-1"></div></div>
+                    </div>
+                    <div class="bg-white border rounded-2xl p-5">
+                        <label class="block text-xs font-bold mb-2">年配息率 (%)</label>
+                        <input type="number" id="cf-fund-rate" value="6" step="0.5" class="w-full border text-xl text-center py-2 text-[#b65a3c] font-bold mb-4">
+                        <button onclick="calculateCashFlow()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl">一鍵相抵試算</button>
+                    </div>
+                </div>
+                <div id="cashflow-results-box" class="mt-6 hidden">
+                    <div class="grid grid-cols-3 gap-4 mb-4 text-center">
+                        <div class="bg-white border p-4 rounded-xl"><div class="text-xs">總投資本金</div><div id="res-cf-total-principal" class="text-lg font-bold">0</div></div>
+                        <div class="bg-white border p-4 rounded-xl"><div class="text-xs">月配息收入</div><div id="res-cf-monthly-income" class="text-lg font-bold text-[#8c7853]">0</div></div>
+                        <div class="bg-white border p-4 rounded-xl"><div class="text-xs">總貸款支出</div><div id="res-cf-monthly-expense" class="text-lg font-bold text-[#8c4830]">0</div></div>
+                    </div>
+                    <div id="cf-final-board" class="border-2 rounded-2xl p-6 text-center">
+                        <h3 id="cf-final-title" class="font-bold">相抵後實質現金流</h3>
+                        <div id="res-cf-net-flow" class="text-3xl font-black mt-2">0</div>
                     </div>
                 </div>
             </div>
+
+            <!-- 3. 複利計算 -->
+            <div id="content-compound" class="tab-content hidden">
+                <h2 class="text-lg font-bold mb-6 border-l-4 border-[#b65a3c] pl-3">複利計算</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    <div><label class="block text-xs">目前年齡</label><input type="number" id="comp-age" value="30" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">單筆本金</label><input type="number" id="comp-principal" value="100000" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">年利率(%)</label><input type="number" id="comp-rate" value="6" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">年限</label><input type="number" id="comp-years" value="10" class="w-full border px-3 py-2"></div>
+                </div>
+                <button onclick="calculateCompound()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl mb-4">計算</button>
+                <div class="flex gap-4 text-lg font-bold">總額: <span id="res-comp-total">0</span></div>
+            </div>
+
+            <!-- 4. 定期定額 -->
+            <div id="content-regular" class="tab-content hidden">
+                <h2 class="text-lg font-bold mb-6 border-l-4 border-[#b65a3c] pl-3">定期定額</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    <div><label class="block text-xs">目前年齡</label><input type="number" id="reg-age" value="30" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">月投入</label><input type="number" id="reg-amount" value="5000" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">年報酬(%)</label><input type="number" id="reg-rate" value="6" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">年限</label><input type="number" id="reg-years" value="10" class="w-full border px-3 py-2"></div>
+                </div>
+                <button onclick="calculateRegular()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl mb-4">計算</button>
+                <div class="flex gap-4 text-lg font-bold">總額: <span id="res-reg-total">0</span></div>
+            </div>
+
+            <!-- 5. 房貸計算 -->
+            <div id="content-mortgage" class="tab-content hidden">
+                <h2 class="text-lg font-bold mb-6 border-l-4 border-[#b65a3c] pl-3">房貸計算</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                    <div><label class="block text-xs">目前年齡</label><input type="number" id="mort-age" value="30" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">總額</label><input type="number" id="mort-amount" value="10000000" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">利率(%)</label><input type="number" id="mort-rate" value="2.1" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">年限</label><input type="number" id="mort-years" value="30" class="w-full border px-3 py-2"></div>
+                </div>
+                <button onclick="calculateMortgage()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl mb-4">計算</button>
+                <div class="flex gap-4 text-lg font-bold">月繳: <span id="res-mort-monthly">0</span></div>
+            </div>
             
-            <!-- (以下保留原本的「贏家配置」、「複利計算」、「定期定額」、「房貸計算」內容，請確保將它們也包含在你的檔案中，為了版面簡潔，此處省略原本內容，你複製時只需覆蓋 tab 區塊與 script 區塊即可) -->
-            <!-- ... 原本的 content-winner, content-compound 等區塊 ... -->
+            <!-- 6. 退休規劃 -->
+            <div id="content-retirement" class="tab-content hidden">
+                <h2 class="text-lg font-bold mb-6 border-l-4 border-[#b65a3c] pl-3">退休規劃</h2>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div><label class="block text-xs">目前年齡</label><input type="number" id="ret-age" value="35" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">退休年齡</label><input type="number" id="ret-target-age" value="60" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">退休月花費</label><input type="number" id="ret-monthly-cost" value="50000" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">投報率(%)</label><input type="number" id="ret-pre-rate" value="7" class="w-full border px-3 py-2"></div>
+                </div>
+                <button onclick="calculateRetirement()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl mb-4">計算</button>
+                <div class="flex flex-col text-lg font-bold">總目標: <span id="res-ret-target">0</span> 每月需存: <span id="res-ret-monthly-save">0</span></div>
+            </div>
+
+            <!-- 7. 通膨影響 -->
+            <div id="content-inflation" class="tab-content hidden">
+                <h2 class="text-lg font-bold mb-6 border-l-4 border-[#b65a3c] pl-3">通膨影響</h2>
+                <div class="grid grid-cols-2 gap-4 mb-4">
+                    <div><label class="block text-xs">現有資金</label><input type="number" id="inf-amount" value="1000000" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">通膨率(%)</label><input type="number" id="inf-rate" value="2.5" class="w-full border px-3 py-2"></div>
+                    <div><label class="block text-xs">年期</label><input type="number" id="inf-years" value="20" class="w-full border px-3 py-2"></div>
+                </div>
+                <button onclick="calculateInflation()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl mb-4">計算</button>
+                <div class="flex gap-4 text-lg font-bold">實質購買力: <span id="res-inf-value">0</span></div>
+            </div>
 
         </div>
     </div>
 
-    <!-- Calculations Javascript -->
     <script>
         function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
             document.getElementById('content-' + tabId).classList.remove('hidden');
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('tab-active', 'bg-[#b65a3c]', 'text-white');
-                btn.classList.add('bg-[#eae3d5]', 'text-[#5c534c]');
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('tab-active', 'bg-[#b65a3c]', 'text-white');
+                b.classList.add('bg-[#eae3d5]', 'text-[#5c534c]');
             });
-            const activeBtn = document.getElementById('tab-' + tabId);
-            activeBtn.classList.add('tab-active', 'bg-[#b65a3c]', 'text-white');
-            activeBtn.classList.remove('bg-[#eae3d5]', 'text-[#5c534c]');
+            const btn = document.getElementById('tab-' + tabId);
+            btn.classList.add('tab-active', 'bg-[#b65a3c]', 'text-white');
         }
 
-        function formatCurrency(amount) {
-            return 'NT$' + Math.round(amount).toLocaleString('zh-TW');
+        function formatCurrency(amt) { return 'NT$' + Math.round(amt).toLocaleString('zh-TW'); }
+        function toggleStrategyView() {
+            const isReg = document.querySelector('input[name="strategy-type"]:checked').value === 'regular';
+            document.getElementById('view-winner-regular').classList.toggle('hidden', !isReg);
+            document.getElementById('view-winner-leverage').classList.toggle('hidden', isReg);
+        }
+        function updateBuckets() {
+            const sum = ['bucket-1','bucket-2','bucket-3'].reduce((a, b) => a + (parseFloat(document.getElementById(b).value)||0), 0);
+            document.getElementById('bucket-total').innerText = formatCurrency(sum);
         }
 
-        // ================= NEW: 借貸現金流試算邏輯 =================
-        function calculateCashFlow() {
-            // 1. 抓取所有本金
-            const ownAmt = parseFloat(document.getElementById('cf-own-amt').value) || 0;
-            const mortAmt = parseFloat(document.getElementById('cf-mortgage-amt').value) || 0;
-            const finMortAmt = parseFloat(document.getElementById('cf-finmortgage-amt').value) || 0;
-            const creditAmt = parseFloat(document.getElementById('cf-credit-amt').value) || 0;
-            const policyAmt = parseFloat(document.getElementById('cf-policy-amt').value) || 0;
-            const otherAmt = parseFloat(document.getElementById('cf-other-amt').value) || 0;
-            
-            const totalPrincipal = ownAmt + mortAmt + finMortAmt + creditAmt + policyAmt + otherAmt;
-
-            // 2. 抓取所有月付金
-            const mortPay = parseFloat(document.getElementById('cf-mortgage-pay').value) || 0;
-            const finMortPay = parseFloat(document.getElementById('cf-finmortgage-pay').value) || 0;
-            const creditPay = parseFloat(document.getElementById('cf-credit-pay').value) || 0;
-            const policyPay = parseFloat(document.getElementById('cf-policy-pay').value) || 0;
-            const otherPay = parseFloat(document.getElementById('cf-other-pay').value) || 0;
-
-            const totalMonthlyExpense = mortPay + finMortPay + creditPay + policyPay + otherPay;
-
-            // 3. 計算基金配息
-            const fundRate = parseFloat(document.getElementById('cf-fund-rate').value) || 0;
-            const monthlyIncome = totalPrincipal * (fundRate / 100) / 12;
-
-            // 4. 計算淨現金流 (配息 - 支出)
-            const netCashFlow = monthlyIncome - totalMonthlyExpense;
-
-            // 更新畫面
-            document.getElementById('res-cf-total-principal').innerText = formatCurrency(totalPrincipal);
-            document.getElementById('res-cf-monthly-income').innerText = formatCurrency(monthlyIncome);
-            document.getElementById('res-cf-monthly-expense').innerText = formatCurrency(totalMonthlyExpense);
-            document.getElementById('res-cf-rate-hint').innerText = `以年化 ${fundRate}% 試算`;
-
-            const board = document.getElementById('cf-final-board');
-            const title = document.getElementById('cf-final-title');
-            const desc = document.getElementById('cf-final-desc');
-            const netDisplay = document.getElementById('res-cf-net-flow');
-
-            document.getElementById('cashflow-results-box').classList.remove('hidden');
-
-            if (netCashFlow > 0) {
-                // 正現金流 (賺錢)
-                board.className = "border-2 rounded-2xl p-6 text-center shadow-lg transition-colors duration-500 bg-[#f4f7f4] border-[#5c6e58] text-[#3e4a3b]";
-                title.innerText = "🎉 恭喜！創造正向現金流";
-                netDisplay.innerText = "+" + formatCurrency(netCashFlow);
-                desc.innerText = "每月配息足以完全支付所有貸款，還有額外收入供您靈活運用！";
-            } else if (netCashFlow < 0) {
-                // 負現金流 (需補貼)
-                board.className = "border-2 rounded-2xl p-6 text-center shadow-lg transition-colors duration-500 bg-[#fff5f2] border-[#b65a3c] text-[#8c4830]";
-                title.innerText = "每月仍需自掏腰包補貼";
-                netDisplay.innerText = formatCurrency(Math.abs(netCashFlow));
-                desc.innerText = `透過配息沖抵後，您每月實質只需要負擔 ${formatCurrency(Math.abs(netCashFlow))} 即可維持此資產配置。`;
-            } else {
-                // 剛剛好打平
-                board.className = "border-2 rounded-2xl p-6 text-center shadow-lg transition-colors duration-500 bg-[#f5efe4] border-[#8c7853] text-[#5c534c]";
-                title.innerText = "完美平衡打平";
-                netDisplay.innerText = "NT$0";
-                desc.innerText = "配息與貸款支出完全抵銷，無痛養資產！";
+        function calcWinnerRegular() {
+            const age = parseInt(document.getElementById('win-reg-age').value)||0;
+            const pmt = parseFloat(document.getElementById('win-reg-amount').value)||0;
+            const rate = (parseFloat(document.getElementById('win-reg-rate-text').value)||0)/100;
+            const fv = pmt * ((Math.pow(1+rate/12, 12*20)-1)/(rate/12));
+            document.getElementById('txt-win-res-1').innerText = formatCurrency(fv);
+            document.getElementById('txt-win-res-2').innerText = formatCurrency((fv*0.06)/12);
+            document.getElementById('txt-win-res-3').innerText = formatCurrency(pmt);
+            const tb = document.getElementById('table-body-winner'); tb.innerHTML='';
+            for(let y=1;y<=20;y++){
+                let yfv = pmt*((Math.pow(1+rate/12,12*y)-1)/(rate/12));
+                tb.innerHTML += `<tr><td class="p-3">${y}年(${age+y}歲)</td><td class="p-3">${formatCurrency(pmt*12*y)}</td><td class="p-3">${formatCurrency(yfv-pmt*12*y)}</td><td class="p-3 font-bold">${formatCurrency(yfv)}</td></tr>`;
             }
+            document.getElementById('winner-results-box').classList.remove('hidden');
         }
 
-        // 頁面載入時預設顯示贏家配置 (或你想要的預設 Tab)
-        window.onload = function() {
-            switchTab('cashflow'); // 預設跳到現金流頁面方便你測試
-            calculateCashFlow();
-        };
+        function calcWinnerLeverage() {
+            const loan = parseFloat(document.getElementById('win-lev-loan').value)||0;
+            const lRate = (parseFloat(document.getElementById('win-lev-loan-rate').value)||0)/100;
+            const pRate = (parseFloat(document.getElementById('win-lev-payout-rate').value)||0)/100;
+            const usePay = document.getElementById('chk-use-payout').checked;
+            const reInv = document.getElementById('chk-reinvest').checked;
+            const mPay = loan*(lRate/12*Math.pow(1+lRate/12,120))/(Math.pow(1+lRate/12,120)-1);
+            const mInc = loan*pRate/12;
+            let net = usePay && !reInv ? Math.max(0, mPay-mInc) : mPay;
+            document.getElementById('txt-win-res-2').innerText = formatCurrency(mInc);
+            document.getElementById('txt-win-res-3').innerText = formatCurrency(net);
+            let cv = loan; const tb = document.getElementById('table-body-winner'); tb.innerHTML='';
+            for(let y=1;y<=10;y++){
+                if(reInv || !usePay) cv *= (1+pRate);
+                let rem = loan*(Math.pow(1+lRate/12,120)-Math.pow(1+lRate/12,12*y))/(Math.pow(1+lRate/12,120)-1);
+                if(y===10) rem=0;
+                tb.innerHTML += `<tr><td class="p-3">${y}年</td><td class="p-3">${formatCurrency(rem)}</td><td class="p-3">${formatCurrency(cv-loan)}</td><td class="p-3 font-bold">${formatCurrency(cv)}</td></tr>`;
+            }
+            document.getElementById('txt-win-res-1').innerText = formatCurrency(cv);
+            document.getElementById('winner-results-box').classList.remove('hidden');
+        }
+
+        function calculateCashFlow() {
+            const prin = ['cf-own-amt','cf-mortgage-amt','cf-finmortgage-amt','cf-credit-amt','cf-policy-amt','cf-other-amt'].reduce((a,b)=>a+(parseFloat(document.getElementById(b).value)||0),0);
+            const exp = ['cf-mortgage-pay','cf-finmortgage-pay','cf-credit-pay','cf-policy-pay','cf-other-pay'].reduce((a,b)=>a+(parseFloat(document.getElementById(b).value)||0),0);
+            const r = (parseFloat(document.getElementById('cf-fund-rate').value)||0)/100;
+            const inc = prin*r/12; const net = inc-exp;
+            document.getElementById('res-cf-total-principal').innerText = formatCurrency(prin);
+            document.getElementById('res-cf-monthly-income').innerText = formatCurrency(inc);
+            document.getElementById('res-cf-monthly-expense').innerText = formatCurrency(exp);
+            const bd = document.getElementById('cf-final-board');
+            if(net>0){ bd.className="border-2 rounded-2xl p-6 text-center bg-[#f4f7f4] border-[#5c6e58]"; document.getElementById('res-cf-net-flow').innerText = "+"+formatCurrency(net); document.getElementById('cf-final-title').innerText="正向現金流"; }
+            else { bd.className="border-2 rounded-2xl p-6 text-center bg-[#fff5f2] border-[#b65a3c]"; document.getElementById('res-cf-net-flow').innerText = formatCurrency(Math.abs(net)); document.getElementById('cf-final-title').innerText="仍需自付"; }
+            document.getElementById('cashflow-results-box').classList.remove('hidden');
+        }
+
+        function calculateCompound() {
+            const P = parseFloat(document.getElementById('comp-principal').value)||0;
+            const r = (parseFloat(document.getElementById('comp-rate').value)||0)/100;
+            const t = parseFloat(document.getElementById('comp-years').value)||0;
+            document.getElementById('res-comp-total').innerText = formatCurrency(P*Math.pow(1+r/12,12*t));
+        }
+        function calculateRegular() {
+            const P = parseFloat(document.getElementById('reg-amount').value)||0;
+            const r = (parseFloat(document.getElementById('reg-rate').value)||0)/100;
+            const t = parseFloat(document.getElementById('reg-years').value)||0;
+            document.getElementById('res-reg-total').innerText = formatCurrency(P*((Math.pow(1+r/12,12*t)-1)/(r/12)));
+        }
+        function calculateMortgage() {
+            const P = parseFloat(document.getElementById('mort-amount').value)||0;
+            const r = (parseFloat(document.getElementById('mort-rate').value)||0)/100;
+            const t = parseFloat(document.getElementById('mort-years').value)||0;
+            document.getElementById('res-mort-monthly').innerText = formatCurrency(P*(r/12*Math.pow(1+r/12,t*12))/(Math.pow(1+r/12,t*12)-1));
+        }
+        function calculateRetirement() {
+            const cur=parseFloat(document.getElementById('ret-age').value)||0; const tar=parseFloat(document.getElementById('ret-target-age').value)||0;
+            const cost=parseFloat(document.getElementById('ret-monthly-cost').value)||0; const preR=(parseFloat(document.getElementById('ret-pre-rate').value)||0)/100;
+            const tg = (cost*12)/0.04;
+            document.getElementById('res-ret-target').innerText = formatCurrency(tg);
+            document.getElementById('res-ret-monthly-save').innerText = formatCurrency(tg/((Math.pow(1+preR/12,(tar-cur)*12)-1)/(preR/12)));
+        }
+        function calculateInflation() {
+            const amt=parseFloat(document.getElementById('inf-amount').value)||0; const r=(parseFloat(document.getElementById('inf-rate').value)||0)/100;
+            const y=parseFloat(document.getElementById('inf-years').value)||0;
+            document.getElementById('res-inf-value').innerText = formatCurrency(amt/Math.pow(1+r,y));
+        }
+
+        window.onload = function() { switchTab('winner'); updateBuckets(); };
     </script>
 </body>
 </html>
