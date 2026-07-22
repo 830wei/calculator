@@ -489,6 +489,11 @@
             });
             const activeBtn = document.getElementById('tab-' + tabId);
             activeBtn.classList.add('tab-active', 'bg-[#b65a3c]', 'text-white');
+            
+            // 當切換到房貸計算分頁時，自動執行一次計算
+            if(tabId === 'mortgage') {
+                calculateMortgage();
+            }
         }
 
         function formatCurrency(amount) {
@@ -872,21 +877,12 @@
             }
         }
 
-        function calculateRetirement() {
-            const cost = parseFloat(document.getElementById('ret-monthly-cost').value) || 0;
-            const preR = (parseFloat(document.getElementById('ret-pre-rate').value) || 0) / 100;
-            const target = (cost * 12) / 0.04;
-            const rPer = preR / 12;
-            const pmt = target / ((Math.pow(1 + rPer, 300) - 1) / rPer);
-            document.getElementById('res-ret-monthly-save').innerText = formatCurrency(pmt) + " (每月需存)";
-        }
-
         window.onload = function() {
             switchTab('winner');
             updateBuckets();
             calcWinnerRegular();
             calculateRegular();
-            calculateMortgage();
+            calculateMortgage(); // 頁面載入時自動先算一次房貸
             updateCashflowInputSum();
         };
     </script>
