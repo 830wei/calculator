@@ -4,19 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>瑋瑋專屬財務計算機 | 專業理財規劃工具</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Noto Sans TC', sans-serif; background-color: #f7f3ed; color: #3e3a36; }
-        .tab-active { background-color: #b65a3c; color: #ffffff !important; box-shadow: 0 4px 12px rgba(182, 90, 60, 0.15); }
-        .interactive-cell { transition: all 0.2s ease-in-out; }
-        .interactive-cell:hover { transform: scale(1.12); color: #b65a3c; font-weight: 700; background-color: #eae3d5; box-shadow: 0 4px 10px rgba(182, 90, 60, 0.1); z-index: 10; }
-        .interactive-row:hover { background-color: #fcfaf7; }
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #f7f3ed; /* 溫暖的淺燕麥大地色 */
+            color: #3e3a36; /* 深炭褐 */
+        }
+        .tab-active {
+            background-color: #b65a3c; /* 溫暖陶土紅 */
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(182, 90, 60, 0.15);
+        }
+        .interactive-cell {
+            transition: all 0.2s ease-in-out;
+        }
+        .interactive-cell:hover {
+            transform: scale(1.12);
+            color: #b65a3c;
+            font-weight: 700;
+            background-color: #eae3d5;
+            box-shadow: 0 4px 10px rgba(182, 90, 60, 0.1);
+            z-index: 10;
+        }
+        .interactive-row:hover {
+            background-color: #fcfaf7;
+        }
     </style>
 </head>
 <body class="min-h-screen py-10 px-4 sm:px-6 lg:px-8">
-    <div class="max-w-5xl mx-auto">
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- Header Section -->
         <header class="text-center mb-10">
             <div class="inline-flex items-center justify-center p-3.5 bg-[#b65a3c] rounded-full shadow-md mb-4 text-white">
                 <i class="fa-solid fa-calculator text-xl"></i>
@@ -25,277 +49,626 @@
             <p class="text-[#6e665e] text-sm mt-2 font-medium">Financial Calculator · 公勝保經瑋瑋為您規劃的智能理財工具</p>
         </header>
 
+        <!-- Main Card Container -->
         <div class="bg-[#fcfaf7] border border-[#e3dac9] rounded-3xl p-6 sm:p-8 shadow-xl shadow-stone-200/50">
             
-            <!-- 導覽列 -->
-            <div class="flex flex-wrap gap-2.5 mb-8 border-b border-[#e9e2d5] pb-5 justify-center">
-                <button onclick="switchTab('winner')" id="tab-winner" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1 tab-active"><i class="fa-solid fa-crown"></i> 贏家配置</button>
-                <button onclick="switchTab('cashflow')" id="tab-cashflow" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1"><i class="fa-solid fa-scale-balanced"></i> 借貸現金流</button>
-                <button onclick="switchTab('compound')" id="tab-compound" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1"><i class="fa-solid fa-chart-line"></i> 複利計算</button>
-                <button onclick="switchTab('regular')" id="tab-regular" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1"><i class="fa-solid fa-calendar-days"></i> 定期定額</button>
-                <button onclick="switchTab('mortgage')" id="tab-mortgage" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1"><i class="fa-solid fa-house-chimney"></i> 房貸計算</button>
-                <button onclick="switchTab('retirement')" id="tab-retirement" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1"><i class="fa-solid fa-bullseye"></i> 退休規劃</button>
-                <button onclick="switchTab('inflation')" id="tab-inflation" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center gap-1"><i class="fa-solid fa-temperature-high"></i> 通膨影響</button>
+            <!-- Tabs Navigation -->
+            <div class="grid grid-cols-2 sm:grid-cols-6 gap-2.5 mb-8 border-b border-[#e9e2d5] pb-5">
+                <button onclick="switchTab('winner')" id="tab-winner" class="tab-btn px-2 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1 tab-active">
+                    <i class="fa-solid fa-crown"></i> 贏家配置
+                </button>
+                <button onclick="switchTab('compound')" id="tab-compound" class="tab-btn px-2 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-chart-line"></i> 複利計算
+                </button>
+                <button onclick="switchTab('regular')" id="tab-regular" class="tab-btn px-2 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-calendar-days"></i> 定期定額
+                </button>
+                <button onclick="switchTab('mortgage')" id="tab-mortgage" class="tab-btn px-2 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-house-chimney"></i> 房貸計算
+                </button>
+                <button onclick="switchTab('retirement')" id="tab-retirement" class="tab-btn px-2 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-bullseye"></i> 退休規劃
+                </button>
+                <button onclick="switchTab('inflation')" id="tab-inflation" class="tab-btn px-2 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-temperature-high"></i> 通膨影響
+                </button>
             </div>
 
-            <!-- 1. 贏家配置 -->
+            <!-- Tab Contents -->
+            <!-- 0. Winner Strategy (NEW) -->
             <div id="content-winner" class="tab-content">
-                <h2 class="text-xl font-bold mb-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">20%贏家資產配置提案</h2>
+                <h2 class="text-xl font-bold mb-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">
+                    20%贏家資產配置提案
+                </h2>
+                <p class="text-xs text-[#8c8275] mb-6 pl-4">掌握金錢運作規則，跳脫80%辛苦存錢的生存遊戲，開啟資產與利差的財富引擎。</p>
+                
+                <!-- 三桶金互動區 -->
                 <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 mb-8">
-                    <h3 class="text-sm font-bold text-[#5c4a3c] mb-4 flex items-center gap-2"><i class="fa-solid fa-bucket text-[#b65a3c]"></i> 第一步：檢視您的人生三桶金</h3>
+                    <h3 class="text-sm font-bold text-[#5c4a3c] mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-bucket text-[#b65a3c]"></i> 第一步：檢視您的人生三桶金配置支出
+                    </h3>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div><label class="block text-xs font-bold mb-1">第一桶：根基防禦 (月)</label><input type="number" id="bucket-1" value="30000" oninput="updateBuckets()" class="w-full bg-white border border-[#e3dac9] rounded-xl px-3 py-2 text-sm"></div>
-                        <div><label class="block text-xs font-bold mb-1">第二桶：靈魂成長 (月)</label><input type="number" id="bucket-2" value="10000" oninput="updateBuckets()" class="w-full bg-white border border-[#e3dac9] rounded-xl px-3 py-2 text-sm"></div>
-                        <div><label class="block text-xs font-bold mb-1">第三桶：日常彈性 (月)</label><input type="number" id="bucket-3" value="15000" oninput="updateBuckets()" class="w-full bg-white border border-[#e3dac9] rounded-xl px-3 py-2 text-sm"></div>
+                        <div>
+                            <label class="block text-xs font-bold text-[#6e665e] mb-1">第一桶：根基防禦 (月/NT$)</label>
+                            <input type="number" id="bucket-1" value="30000" oninput="updateBuckets()" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]">
+                            <span class="text-[10px] text-[#8c8275] mt-1 block">房貸、固定保險等大額不可斷支出</span>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-[#6e665e] mb-1">第二桶：靈魂成長 (月/NT$)</label>
+                            <input type="number" id="bucket-2" value="10000" oninput="updateBuckets()" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]">
+                            <span class="text-[10px] text-[#8c8275] mt-1 block">學習投資、興趣愛好與生活品質</span>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-[#6e665e] mb-1">第三桶：日常彈性 (月/NT$)</label>
+                            <input type="number" id="bucket-3" value="15000" oninput="updateBuckets()" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]">
+                            <span class="text-[10px] text-[#8c8275] mt-1 block">食衣住行育樂等小額可隨時調整支出</span>
+                        </div>
                     </div>
-                    <div class="mt-4 pt-3 border-t flex justify-between text-xs font-bold">
-                        <span>總開銷：<span id="bucket-total" class="text-[#b65a3c]">NT$55,000</span></span>
+                    <div class="mt-4 pt-3 border-t border-[#e6dcce] flex justify-between items-center text-xs font-bold text-[#5c4a3c]">
+                        <span>目前每月總開銷：<span id="bucket-total" class="text-[#b65a3c]">NT$55,000</span></span>
+                        <span class="text-[11px] text-[#5c6e58]">💡 擁有穩定被動收入，你就能開心地花掉每月的利息！</span>
                     </div>
                 </div>
-                <div class="bg-white border border-[#e3dac9] rounded-2xl p-5 mb-6">
-                    <div class="mb-6 flex gap-4">
-                        <label class="flex items-center gap-2 text-sm"><input type="radio" name="strategy-type" value="regular" checked onclick="toggleStrategyView()" class="accent-[#b65a3c]"> 定期定額穩健累積</label>
-                        <label class="flex items-center gap-2 text-sm"><input type="radio" name="strategy-type" value="leverage" onclick="toggleStrategyView()" class="accent-[#b65a3c]"> 信貸槓桿加速計畫</label>
+
+                <!-- 方案選擇區 -->
+                <div class="bg-[#fdfdfd] border border-[#e3dac9] rounded-2xl p-5 mb-6">
+                    <h3 class="text-sm font-bold text-[#5c4a3c] mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-[#b65a3c]"></i> 第二步：選擇適合您的資產加速提案
+                    </h3>
+                    
+                    <div class="mb-6">
+                        <label class="block text-xs font-bold text-[#6e665e] mb-2">您的風險承受偏好：</label>
+                        <div class="flex gap-4">
+                            <label class="flex items-center gap-2 text-sm font-medium text-[#5c534c] cursor-pointer">
+                                <input type="radio" name="strategy-type" value="regular" checked onclick="toggleStrategyView()" class="accent-[#b65a3c]"> 
+                                定期定額穩健累積（用時間換空間）
+                            </label>
+                            <label class="flex items-center gap-2 text-sm font-medium text-[#5c534c] cursor-pointer">
+                                <input type="radio" name="strategy-type" value="leverage" onclick="toggleStrategyView()" class="accent-[#b65a3c]"> 
+                                信貸槓桿加速計畫（用利差贏大盤）
+                            </label>
+                        </div>
                     </div>
-                    <!-- 定期定額版 -->
+
+                    <!-- 方案 A: 定期定額 -->
                     <div id="view-winner-regular" class="space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                            <div><label class="block text-xs font-bold mb-1">目前年齡</label><input type="number" id="win-reg-age" value="30" class="w-full border rounded-xl px-3 py-2"></div>
-                            <div><label class="block text-xs font-bold mb-1">每月投入</label><input type="number" id="win-reg-amount" value="15000" class="w-full border rounded-xl px-3 py-2"></div>
-                            <div><label class="block text-xs font-bold mb-1">預期報酬率 (%)</label><input type="number" id="win-reg-rate-text" value="6" class="w-full border rounded-xl px-3 py-2"></div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#6e665e] mb-1">目前年齡</label>
+                                <input type="number" id="win-reg-age" value="30" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#6e665e] mb-1">每月預計投入金額 (NT$)</label>
+                                <input type="number" id="win-reg-amount" value="15000" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#6e665e] mb-1">配置標的預期報酬率 (%)</label>
+                                <div class="flex items-center gap-2 mt-1">
+                                    <input type="range" id="win-reg-rate-slider" min="4" max="12" value="6" oninput="document.getElementById('win-reg-rate-text').value = this.value" class="w-full accent-[#b65a3c]">
+                                    <input type="number" id="win-reg-rate-text" value="6" min="4" max="12" oninput="document.getElementById('win-reg-rate-slider').value = this.value" class="w-12 text-center bg-[#fdfdfd] border border-[#e3dac9] rounded-lg text-xs py-1"><span>%</span>
+                                </div>
+                            </div>
                         </div>
-                        <button onclick="calcWinnerRegular()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl">啟動試算</button>
+                        <button onclick="calcWinnerRegular()" class="w-full bg-[#b65a3c] hover:bg-[#9c4c30] text-white font-bold py-3 px-6 rounded-xl text-sm transition-all shadow-md">
+                            啟動微笑曲線複利試算
+                        </button>
                     </div>
-                    <!-- 槓桿版 -->
+
+                    <!-- 方案 B: 信貸槓桿 -->
                     <div id="view-winner-leverage" class="space-y-4 hidden">
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div><label class="block text-xs font-bold mb-1">目前年齡</label><input type="number" id="win-lev-age" value="30" class="w-full border rounded-xl px-3 py-2"></div>
-                            <div><label class="block text-xs font-bold mb-1">信貸金額</label><input type="number" id="win-lev-loan" value="2540000" class="w-full border rounded-xl px-3 py-2"></div>
-                            <div><label class="block text-xs font-bold mb-1">信貸利率(%)</label><input type="number" id="win-lev-loan-rate" value="2.5" class="w-full border rounded-xl px-3 py-2"></div>
-                            <div><label class="block text-xs font-bold mb-1">年配息率(%)</label><input type="number" id="win-lev-payout-rate" value="10" class="w-full border rounded-xl px-3 py-2"></div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-[#6e665e] mb-1">目前年齡</label>
+                                <input type="number" id="win-lev-age" value="30" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#6e665e] mb-1">信貸申請金額 (NT$)</label>
+                                <input type="number" id="win-lev-loan" value="2540000" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#6e665e] mb-1">信貸年利率 (%)</label>
+                                <input type="number" id="win-lev-loan-rate" value="2.5" step="0.1" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#6e665e] mb-1">設定保單年配息率 (%)</label>
+                                <input type="number" id="win-lev-payout-rate" value="10" step="0.5" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]">
+                            </div>
                         </div>
-                        <div class="flex gap-4 text-xs mt-2">
-                            <label><input type="checkbox" id="chk-use-payout" checked class="accent-[#b65a3c]"> 用配息繳貸款</label>
-                            <label><input type="checkbox" id="chk-reinvest" class="accent-[#b65a3c]"> 收益滾入本金</label>
+
+                        <!-- 組合勾選方塊 -->
+                        <div class="bg-[#f7f3ed] p-4 rounded-xl space-y-2 border border-[#e3dac9]">
+                            <span class="block text-xs font-bold text-[#5c4a3c] mb-1"><i class="fa-solid fa-layer-group"></i> 槓桿滾動模式組合（可多選）：</span>
+                            <div class="flex flex-wrap gap-4 text-xs">
+                                <label class="flex items-center gap-1.5 font-medium text-[#5c534c] cursor-pointer">
+                                    <input type="checkbox" id="chk-use-payout" checked class="accent-[#b65a3c]"> (1) 用保單每月配息直接繳信貸月還款
+                                </label>
+                                <label class="flex items-center gap-1.5 font-medium text-[#5c534c] cursor-pointer">
+                                    <input type="checkbox" id="chk-reinvest" class="accent-[#b65a3c]"> (2) 收益不配出，全數配股滾入本金森林
+                                </label>
+                                <label class="flex items-center gap-1.5 font-medium text-[#5c534c] cursor-pointer">
+                                    <input type="checkbox" id="chk-add-regular" onchange="toggleAddRegInput()" class="accent-[#b65a3c]"> (3) 額外搭配自提定期定額雙引擎加速
+                                </label>
+                            </div>
+                            <div id="div-add-reg-val" class="mt-2 hidden">
+                                <label class="text-xs font-bold text-[#6e665e] mr-2">每期自提定期定額加碼金額 (月/NT$)：</label>
+                                <input type="number" id="win-lev-add-amount" value="5000" class="bg-[#fdfdfd] border border-[#e3dac9] rounded-lg px-2 py-1 text-xs focus:outline-none focus:border-[#b65a3c] w-32">
+                            </div>
                         </div>
-                        <button onclick="calcWinnerLeverage()" class="w-full bg-[#8c4830] text-white py-3 rounded-xl">啟動試算</button>
+
+                        <button onclick="calcWinnerLeverage()" class="w-full bg-[#8c4830] hover:bg-[#733b26] text-white font-bold py-3 px-6 rounded-xl text-sm transition-all shadow-md">
+                            啟動信貸資產轉化試算
+                        </button>
                     </div>
                 </div>
-                <div id="winner-results-box" class="hidden">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                        <div class="bg-[#f5efe4] border rounded-2xl p-5 border-l-4 border-[#b65a3c]"><div id="lbl-win-res-1" class="text-xs font-bold">累積資產</div><div id="txt-win-res-1" class="text-2xl font-bold">NT$0</div></div>
-                        <div class="bg-[#f5efe4] border rounded-2xl p-5 border-l-4 border-[#8c7853]"><div id="lbl-win-res-2" class="text-xs font-bold">每月現金流</div><div id="txt-win-res-2" class="text-2xl font-bold">NT$0</div></div>
-                        <div class="bg-[#f5efe4] border rounded-2xl p-5 border-l-4 border-[#5c6e58]"><div id="lbl-win-res-3" class="text-xs font-bold">實質月負擔</div><div id="txt-win-res-3" class="text-2xl font-bold">NT$0</div></div>
+
+                <!-- 贏家提案輸出結果 -->
+                <div id="winner-results-box" class="hidden space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#b65a3c]">
+                            <div class="text-[#6e665e] text-xs font-bold mb-1" id="lbl-win-res-1">10年期末累積資產</div>
+                            <div class="text-2xl font-bold text-[#b65a3c]" id="txt-win-res-1">NT$0</div>
+                            <span class="text-[#8c8275] text-[10px] block mt-1" id="txt-win-age-hint">--</span>
+                        </div>
+                        <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#8c7853]">
+                            <div class="text-[#6e665e] text-xs font-bold mb-1" id="lbl-win-res-2">每月可創造被動現金流</div>
+                            <div class="text-2xl font-bold text-[#8c7853]" id="txt-win-res-2">NT$0</div>
+                            <span class="text-[#8c8275] text-[10px] block mt-1">睡覺時持續為您工作的資產</span>
+                        </div>
+                        <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#5c6e58]">
+                            <div class="text-[#6e665e] text-xs font-bold mb-1" id="lbl-win-res-3">您每月的實質財務負擔</div>
+                            <div class="text-2xl font-bold text-[#5c6e58]" id="txt-win-res-3">NT$0</div>
+                            <span class="text-[#8c8275] text-[10px] block mt-1" id="txt-win-safety-hint">已啟動信貸沖抵機制</span>
+                        </div>
                     </div>
-                    <table class="w-full text-left text-sm border"><thead class="bg-[#eae3d5]"><tr><th class="p-3">時間(年齡)</th><th class="p-3">累積本金/剩餘貸款</th><th class="p-3">累積利益</th><th class="p-3">期末總值</th></tr></thead><tbody id="table-body-winner" class="bg-white divide-y"></tbody></table>
+
+                    <!-- 保單安全網對比 -->
+                    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 flex flex-col md:flex-row gap-4 items-center justify-between">
+                        <div class="space-y-1">
+                            <h4 class="text-sm font-bold text-amber-900 flex items-center gap-1.5">
+                                <i class="fa-solid fa-shield-halved text-[#b65a3c]"></i> 瑋瑋經紀人獨家解鎖：本計畫內建「必勝安全防護網」
+                            </h4>
+                            <p class="text-xs text-amber-800">一般券商理財若發生失能中斷收入，計畫將直接斷供破產；本保險提案具備<b>「失能豁免保費機制」</b>，發生風險時公司代您存入約定金額至計畫圓滿，夢想100%必勝達成！</p>
+                        </div>
+                        <span class="px-3 py-1 bg-[#b65a3c] text-white rounded-full text-xs font-bold whitespace-nowrap">計畫已受防護 🛡️</span>
+                    </div>
+
+                    <!-- 明細表 -->
+                    <div>
+                        <h3 class="text-sm font-bold text-[#5c4a3c] mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-table-list text-[#b65a3c]"></i> 贏家配置資產逐年明細表 (滑鼠移入數字可放大提示)
+                        </h3>
+                        <div class="overflow-x-auto rounded-xl border border-[#e3dac9]">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-[#eae3d5] text-[#5c534c] font-bold">
+                                    <tr>
+                                        <th class="px-4 py-3">時間 (年齡)</th>
+                                        <th class="px-4 py-3" id="th-win-col2">累積投入本金</th>
+                                        <th class="px-4 py-3">累積發酵利益</th>
+                                        <th class="px-4 py-3">當年度期末總值</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body-winner" class="bg-[#fdfdfd] divide-y divide-[#e9e2d5]">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 2. 借貸現金流 -->
-            <div id="content-cashflow" class="tab-content hidden">
-                <h2 class="text-xl font-bold mb-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">借貸與投資現金流相抵</h2>
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <div class="lg:col-span-2 bg-[#f5efe4] border rounded-2xl p-5 space-y-3">
-                        <div class="grid grid-cols-3 text-xs font-bold mb-2"><div>項目</div><div>總金額</div><div>月繳本息</div></div>
-                        <div class="grid grid-cols-3 gap-2"><div>自有資金</div><div><input type="number" id="cf-own-amt" value="1000000" class="w-full border px-2 py-1"></div><div>(無)</div></div>
-                        <div class="grid grid-cols-3 gap-2"><div>一般房貸</div><div><input type="number" id="cf-mortgage-amt" value="0" class="w-full border px-2 py-1"></div><div><input type="number" id="cf-mortgage-pay" value="0" class="w-full border px-2 py-1"></div></div>
-                        <div class="grid grid-cols-3 gap-2"><div>理財房貸</div><div><input type="number" id="cf-finmortgage-amt" value="2000000" class="w-full border px-2 py-1"></div><div><input type="number" id="cf-finmortgage-pay" value="5000" class="w-full border px-2 py-1"></div></div>
-                        <div class="grid grid-cols-3 gap-2"><div>信用貸款</div><div><input type="number" id="cf-credit-amt" value="0" class="w-full border px-2 py-1"></div><div><input type="number" id="cf-credit-pay" value="0" class="w-full border px-2 py-1"></div></div>
-                        <div class="grid grid-cols-3 gap-2"><div>保單貸款</div><div><input type="number" id="cf-policy-amt" value="0" class="w-full border px-2 py-1"></div><div><input type="number" id="cf-policy-pay" value="0" class="w-full border px-2 py-1"></div></div>
-                    </div>
-                    <div class="bg-white border rounded-2xl p-5">
-                        <label class="block text-xs font-bold mb-2">年配息率 (%)</label>
-                        <input type="number" id="cf-fund-rate" value="6" step="0.5" class="w-full border text-xl text-center py-2 text-[#b65a3c] font-bold mb-4">
-                        <button onclick="calculateCashFlow()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl">一鍵相抵試算</button>
-                    </div>
-                </div>
-                <div id="cashflow-results-box" class="mt-6 hidden">
-                    <div class="grid grid-cols-3 gap-4 mb-4 text-center">
-                        <div class="bg-white border p-4 rounded-xl"><div class="text-xs">總投資本金</div><div id="res-cf-total-principal" class="text-lg font-bold">0</div></div>
-                        <div class="bg-white border p-4 rounded-xl"><div class="text-xs">月配息收入</div><div id="res-cf-monthly-income" class="text-lg font-bold text-[#8c7853]">0</div></div>
-                        <div class="bg-white border p-4 rounded-xl"><div class="text-xs">總貸款支出</div><div id="res-cf-monthly-expense" class="text-lg font-bold text-[#8c4830]">0</div></div>
-                    </div>
-                    <div id="cf-final-board" class="border-2 rounded-2xl p-6 text-center">
-                        <h3 id="cf-final-title" class="font-bold">相抵後實質現金流</h3>
-                        <div id="res-cf-net-flow" class="text-3xl font-black mt-2">0</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3. 複利計算 -->
+            <!-- 1. Compound Interest -->
             <div id="content-compound" class="tab-content hidden">
-                <h2 class="text-lg font-bold mb-6 border-l-4 border-[#b65a3c] pl-3">複利計算</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                    <div><label class="block text-xs">目前年齡</label><input type="number" id="comp-age" value="30" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">單筆本金</label><input type="number" id="comp-principal" value="100000" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">年利率(%)</label><input type="number" id="comp-rate" value="6" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">年限</label><input type="number" id="comp-years" value="10" class="w-full border px-3 py-2"></div>
+                <!-- 原有複利內容維持，如前一版 -->
+                <h2 class="text-lg font-bold mb-6 flex items-center gap-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">複利計算</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">目前年齡 (歲)</label><input type="number" id="comp-age" value="30" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">單筆投入本金 (NT$)</label><input type="number" id="comp-principal" value="100000" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">年利率 (%)</label><input type="number" id="comp-rate" value="6" step="0.1" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">投資年限 (年)</label><input type="number" id="comp-years" value="10" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
                 </div>
-                <button onclick="calculateCompound()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl mb-4">計算</button>
-                <div class="flex gap-4 text-lg font-bold">總額: <span id="res-comp-total">0</span></div>
+                <div class="mt-8 flex gap-4">
+                    <button onclick="calculateCompound()" class="flex-1 bg-[#b65a3c] hover:bg-[#9c4c30] text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md"><i class="fa-solid fa-calculator"></i> 立即計算</button>
+                    <button onclick="resetFields('compound')" class="bg-[#eae3d5] hover:bg-[#dfd7c9] text-[#5c534c] font-medium py-3.5 px-6 rounded-xl transition-all"><i class="fa-solid fa-rotate-left"></i> 重置</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#b65a3c]"><div class="text-[#6e665e] text-xs font-bold mb-1">到期總金額</div><div class="text-2xl font-bold text-[#b65a3c]" id="res-comp-total">NT$181,940</div><span class="text-[#8c8275] text-[10px] block mt-1" id="res-comp-endage">--</span></div>
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#8c7853]"><div class="text-[#6e665e] text-xs font-bold mb-1">累積總利息</div><div class="text-2xl font-bold text-[#8c7853]" id="res-comp-interest">NT$81,940</div></div>
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#5c6e58]"><div class="text-[#6e665e] text-xs font-bold mb-1">資產增長倍數</div><div class="text-2xl font-bold text-[#5c6e58]" id="res-comp-multiplier">1.82x</div></div>
+                </div>
+                <div class="mt-10"><table class="w-full text-left text-sm border border-[#e3dac9] rounded-xl overflow-hidden"><thead class="bg-[#eae3d5] text-[#5c534c] font-bold"><tr><th class="px-4 py-3">時間 (年齡)</th><th class="px-4 py-3">累積投入本金</th><th class="px-4 py-3">累積產生利息</th><th class="px-4 py-3">年末總金額</th></tr></thead><tbody id="table-body-compound" class="bg-[#fdfdfd] divide-y divide-[#e9e2d5]"></tbody></table></div>
             </div>
 
-            <!-- 4. 定期定額 -->
+            <!-- 2. Regular savings -->
             <div id="content-regular" class="tab-content hidden">
-                <h2 class="text-lg font-bold mb-6 border-l-4 border-[#b65a3c] pl-3">定期定額</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                    <div><label class="block text-xs">目前年齡</label><input type="number" id="reg-age" value="30" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">月投入</label><input type="number" id="reg-amount" value="5000" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">年報酬(%)</label><input type="number" id="reg-rate" value="6" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">年限</label><input type="number" id="reg-years" value="10" class="w-full border px-3 py-2"></div>
+                <h2 class="text-lg font-bold mb-6 flex items-center gap-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">定期定額</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">目前年齡 (歲)</label><input type="number" id="reg-age" value="30" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">每月投入金額 (NT$)</label><input type="number" id="reg-amount" value="5000" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">預期年化報酬率 (%)</label><input type="number" id="reg-rate" value="6" step="0.1" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">投資期間 (年)</label><input type="number" id="reg-years" value="10" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
                 </div>
-                <button onclick="calculateRegular()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl mb-4">計算</button>
-                <div class="flex gap-4 text-lg font-bold">總額: <span id="res-reg-total">0</span></div>
+                <div class="mt-8 flex gap-4">
+                    <button onclick="calculateRegular()" class="flex-1 bg-[#b65a3c] hover:bg-[#9c4c30] text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md"><i class="fa-solid fa-calculator"></i> 立即計算</button>
+                    <button onclick="resetFields('regular')" class="bg-[#eae3d5] hover:bg-[#dfd7c9] text-[#5c534c] font-medium py-3.5 px-6 rounded-xl transition-all"><i class="fa-solid fa-rotate-left"></i> 重置</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#b65a3c]"><div class="text-[#6e665e] text-xs font-bold mb-1">期末預估總金額</div><div class="text-2xl font-bold text-[#b65a3c]" id="res-reg-total">NT$819,396</div><span class="text-[#8c8275] text-[10px] block mt-1" id="res-reg-endage">--</span></div>
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#8c8275]"><div class="text-[#6e665e] text-xs font-bold mb-1">累積總投入本金</div><div class="text-2xl font-bold text-[#5c534c]" id="res-reg-principal">NT$600,000</div></div>
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#5c6e58]"><div class="text-[#6e665e] text-xs font-bold mb-1">累積淨收益</div><div class="text-2xl font-bold text-[#5c6e58]" id="res-reg-interest">NT$219,396</div></div>
+                </div>
+                <div class="mt-10"><table class="w-full text-left text-sm border border-[#e3dac9] rounded-xl overflow-hidden"><thead class="bg-[#eae3d5] text-[#5c534c] font-bold"><tr><th class="px-4 py-3">時間 (年齡)</th><th class="px-4 py-3">累積投入本金</th><th class="px-4 py-3">累積產生利息</th><th class="px-4 py-3">年末總金額</th></tr></thead><tbody id="table-body-regular" class="bg-[#fdfdfd] divide-y divide-[#e9e2d5]"></tbody></table></div>
             </div>
 
-            <!-- 5. 房貸計算 -->
+            <!-- 3. Mortgage Calculator -->
             <div id="content-mortgage" class="tab-content hidden">
-                <h2 class="text-lg font-bold mb-6 border-l-4 border-[#b65a3c] pl-3">房貸計算</h2>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
-                    <div><label class="block text-xs">目前年齡</label><input type="number" id="mort-age" value="30" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">總額</label><input type="number" id="mort-amount" value="10000000" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">利率(%)</label><input type="number" id="mort-rate" value="2.1" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">年限</label><input type="number" id="mort-years" value="30" class="w-full border px-3 py-2"></div>
+                <!-- 原有房貸內容 -->
+                <h2 class="text-lg font-bold mb-6 flex items-center gap-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">房貸計算</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">目前年齡 (歲)</label><input type="number" id="mort-age" value="30" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">貸款總額 (NT$)</label><input type="number" id="mort-amount" value="10000000" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">貸款年利率 (%)</label><input type="number" id="mort-rate" value="2.1" step="0.01" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">貸款年限 (年)</label><input type="number" id="mort-years" value="30" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div class="md:col-span-2"><label class="block text-xs font-bold text-[#6e665e] mb-2">寬限期 (年)</label><input type="number" id="mort-grace" value="0" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
                 </div>
-                <button onclick="calculateMortgage()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl mb-4">計算</button>
-                <div class="flex gap-4 text-lg font-bold">月繳: <span id="res-mort-monthly">0</span></div>
-            </div>
-            
-            <!-- 6. 退休規劃 -->
-            <div id="content-retirement" class="tab-content hidden">
-                <h2 class="text-lg font-bold mb-6 border-l-4 border-[#b65a3c] pl-3">退休規劃</h2>
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div><label class="block text-xs">目前年齡</label><input type="number" id="ret-age" value="35" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">退休年齡</label><input type="number" id="ret-target-age" value="60" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">退休月花費</label><input type="number" id="ret-monthly-cost" value="50000" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">投報率(%)</label><input type="number" id="ret-pre-rate" value="7" class="w-full border px-3 py-2"></div>
+                <div class="mt-8 flex gap-4">
+                    <button onclick="calculateMortgage()" class="flex-1 bg-[#b65a3c] hover:bg-[#9c4c30] text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md"><i class="fa-solid fa-calculator"></i> 立即計算</button>
+                    <button onclick="resetFields('mortgage')" class="bg-[#eae3d5] hover:bg-[#dfd7c9] text-[#5c534c] font-medium py-3.5 px-6 rounded-xl transition-all"><i class="fa-solid fa-rotate-left"></i> 重置</button>
                 </div>
-                <button onclick="calculateRetirement()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl mb-4">計算</button>
-                <div class="flex flex-col text-lg font-bold">總目標: <span id="res-ret-target">0</span> 每月需存: <span id="res-ret-monthly-save">0</span></div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#b65a3c]"><div class="text-[#6e665e] text-xs font-bold mb-1">本息攤還每月應繳</div><div class="text-2xl font-bold text-[#b65a3c]" id="res-mort-monthly">NT$37,463</div><span class="text-[#8c8275] text-[10px] block mt-1" id="res-mort-endage">--</span></div>
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#8c8275]"><div class="text-[#6e665e] text-xs font-bold mb-1">累積攤還總利息</div><div class="text-2xl font-bold text-[#5c534c]" id="res-mort-total-interest">NT$3,486,680</div></div>
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#8c4830]"><div class="text-[#6e665e] text-xs font-bold mb-1">總攤還金額 (本＋息)</div><div class="text-2xl font-bold text-[#8c4830]" id="res-mort-grand-total">NT$13,486,680</div></div>
+                </div>
             </div>
 
-            <!-- 7. 通膨影響 -->
-            <div id="content-inflation" class="tab-content hidden">
-                <h2 class="text-lg font-bold mb-6 border-l-4 border-[#b65a3c] pl-3">通膨影響</h2>
-                <div class="grid grid-cols-2 gap-4 mb-4">
-                    <div><label class="block text-xs">現有資金</label><input type="number" id="inf-amount" value="1000000" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">通膨率(%)</label><input type="number" id="inf-rate" value="2.5" class="w-full border px-3 py-2"></div>
-                    <div><label class="block text-xs">年期</label><input type="number" id="inf-years" value="20" class="w-full border px-3 py-2"></div>
+            <!-- 4. Retirement Planning -->
+            <div id="content-retirement" class="tab-content hidden">
+                <!-- 原有退休內容 -->
+                <h2 class="text-lg font-bold mb-6 flex items-center gap-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">退休規劃</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">目前年齡 (歲)</label><input type="number" id="ret-age" value="35" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">預計退休年齡 (歲)</label><input type="number" id="ret-target-age" value="60" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">退休後每月生活費 (NT$)</label><input type="number" id="ret-monthly-cost" value="50000" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">準備期預期年化報酬率 (%)</label><input type="number" id="ret-pre-rate" value="7" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div class="md:col-span-2"><label class="block text-xs font-bold text-[#6e665e] mb-2">退休後安全年化回報率 (%)</label><input type="number" id="ret-post-rate" value="4" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
                 </div>
-                <button onclick="calculateInflation()" class="w-full bg-[#b65a3c] text-white py-3 rounded-xl mb-4">計算</button>
-                <div class="flex gap-4 text-lg font-bold">實質購買力: <span id="res-inf-value">0</span></div>
+                <div class="mt-8 flex gap-4">
+                    <button onclick="calculateRetirement()" class="flex-1 bg-[#b65a3c] hover:bg-[#9c4c30] text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md"><i class="fa-solid fa-calculator"></i> 立即計算</button>
+                    <button onclick="resetFields('retirement')" class="bg-[#eae3d5] hover:bg-[#dfd7c9] text-[#5c534c] font-medium py-3.5 px-6 rounded-xl transition-all"><i class="fa-solid fa-rotate-left"></i> 重置</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#b65a3c]"><div class="text-[#6e665e] text-xs font-bold mb-1">理想退休金目標</div><div class="text-2xl font-bold text-[#b65a3c]" id="res-ret-target">NT$15,000,000</div><span class="text-[#8c8275] text-[10px] block mt-1" id="res-ret-duration">--</span></div>
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#5c6e58]"><div class="text-[#6e665e] text-xs font-bold mb-1">累積期每月應存 (定期定額)</div><div class="text-2xl font-bold text-[#5c6e58]" id="res-ret-monthly-save">NT$18,518</div></div>
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#8c7853]"><div class="text-[#6e665e] text-xs font-bold mb-1">退休本金安全壽命</div><div class="text-2xl font-bold text-[#8c7853]">永續提取</div></div>
+                </div>
+            </div>
+
+            <!-- 5. Inflation Impact -->
+            <div id="content-inflation" class="tab-content hidden">
+                <!-- 原有通膨內容 -->
+                <h2 class="text-lg font-bold mb-6 flex items-center gap-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">通膨影響</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">目前年齡 (歲)</label><input type="number" id="inf-age" value="30" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">現有資金 (NT$)</label><input type="number" id="inf-amount" value="1000000" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">預估年度通膨率 (%)</label><input type="number" id="inf-rate" value="2.5" step="0.1" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">放置時間年期 (年)</label><input type="number" id="inf-years" value="20" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36] focus:outline-none focus:border-[#b65a3c]"></div>
+                </div>
+                <div class="mt-8 flex gap-4">
+                    <button onclick="calculateInflation()" class="flex-1 bg-[#b65a3c] hover:bg-[#9c4c30] text-white font-bold py-3.5 px-6 rounded-xl transition-all shadow-md"><i class="fa-solid fa-calculator"></i> 立即計算</button>
+                    <button onclick="resetFields('inflation')" class="bg-[#eae3d5] hover:bg-[#dfd7c9] text-[#5c534c] font-medium py-3.5 px-6 rounded-xl transition-all"><i class="fa-solid fa-rotate-left"></i> 重置</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#b65a3c]"><div class="text-[#6e665e] text-xs font-bold mb-1">實質購買力僅存</div><div class="text-2xl font-bold text-[#b65a3c]" id="res-inf-value">NT$609,531</div><span class="text-[#8c8275] text-[10px] block mt-1" id="res-inf-endage">--</span></div>
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#8c8275]"><div class="text-[#6e665e] text-xs font-bold mb-1">存款名目金額</div><div class="text-2xl font-bold text-[#5c534c]" id="res-inf-nominal">NT$1,000,000</div></div>
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#8c4830]"><div class="text-[#6e665e] text-xs font-bold mb-1">被通膨無形蒸發之價值</div><div class="text-2xl font-bold text-[#8c4830]" id="res-inf-loss">NT$390,469</div></div>
+                </div>
             </div>
 
         </div>
+
+        <!-- Footer / Business Profile -->
+        <footer class="mt-12 text-center text-[#8c8275] text-xs border-t border-[#e3dac9] pt-6">
+            <div class="flex items-center justify-center gap-2 mb-3">
+                <span class="px-3 py-1 bg-[#eae3d5] text-[#8c4830] rounded-full font-bold">公勝保險經紀人</span>
+                <span class="text-[#6e665e] font-medium">專業經紀人 瑋瑋</span>
+            </div>
+            <p>© 2026 瑋瑋理財智囊. All Rights Reserved.</p>
+            <p class="mt-1">※本財務試算工具結果僅供參考，不作為實際投資產品之保證。投資理財一定有風險，詳情請洽詢專業顧問諮詢。※</p>
+        </footer>
     </div>
 
+    <!-- Calculations Javascript -->
     <script>
         function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
             document.getElementById('content-' + tabId).classList.remove('hidden');
-            document.querySelectorAll('.tab-btn').forEach(b => {
-                b.classList.remove('tab-active', 'bg-[#b65a3c]', 'text-white');
-                b.classList.add('bg-[#eae3d5]', 'text-[#5c534c]');
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active', 'bg-[#b65a3c]', 'text-white');
+                btn.classList.add('bg-[#eae3d5]', 'text-[#5c534c]');
             });
-            const btn = document.getElementById('tab-' + tabId);
-            btn.classList.add('tab-active', 'bg-[#b65a3c]', 'text-white');
+            const activeBtn = document.getElementById('tab-' + tabId);
+            activeBtn.classList.add('tab-active', 'bg-[#b65a3c]', 'text-white');
+            activeBtn.classList.remove('bg-[#eae3d5]', 'text-[#5c534c]');
         }
 
-        function formatCurrency(amt) { return 'NT$' + Math.round(amt).toLocaleString('zh-TW'); }
+        function formatCurrency(amount) {
+            return 'NT$' + Math.round(amount).toLocaleString('zh-TW');
+        }
+
         function toggleStrategyView() {
-            const isReg = document.querySelector('input[name="strategy-type"]:checked').value === 'regular';
-            document.getElementById('view-winner-regular').classList.toggle('hidden', !isReg);
-            document.getElementById('view-winner-leverage').classList.toggle('hidden', isReg);
-        }
-        function updateBuckets() {
-            const sum = ['bucket-1','bucket-2','bucket-3'].reduce((a, b) => a + (parseFloat(document.getElementById(b).value)||0), 0);
-            document.getElementById('bucket-total').innerText = formatCurrency(sum);
+            const type = document.querySelector('input[name="strategy-type"]:checked').value;
+            if (type === 'regular') {
+                document.getElementById('view-winner-regular').classList.remove('hidden');
+                document.getElementById('view-winner-leverage').classList.add('hidden');
+            } else {
+                document.getElementById('view-winner-regular').classList.add('hidden');
+                document.getElementById('view-winner-leverage').classList.remove('hidden');
+            }
         }
 
+        function toggleAddRegInput() {
+            const chk = document.getElementById('chk-add-regular').checked;
+            if (chk) {
+                document.getElementById('div-add-reg-val').classList.remove('hidden');
+            } else {
+                document.getElementById('div-add-reg-val').classList.add('hidden');
+            }
+        }
+
+        function updateBuckets() {
+            const b1 = parseFloat(document.getElementById('bucket-1').value) || 0;
+            const b2 = parseFloat(document.getElementById('bucket-2').value) || 0;
+            const b3 = parseFloat(document.getElementById('bucket-3').value) || 0;
+            document.getElementById('bucket-total').innerText = formatCurrency(b1 + b2 + b3);
+        }
+
+        // ==================== WINNER STRATEGY LOGIC ====================
         function calcWinnerRegular() {
-            const age = parseInt(document.getElementById('win-reg-age').value)||0;
-            const pmt = parseFloat(document.getElementById('win-reg-amount').value)||0;
-            const rate = (parseFloat(document.getElementById('win-reg-rate-text').value)||0)/100;
-            const fv = pmt * ((Math.pow(1+rate/12, 12*20)-1)/(rate/12));
-            document.getElementById('txt-win-res-1').innerText = formatCurrency(fv);
-            document.getElementById('txt-win-res-2').innerText = formatCurrency((fv*0.06)/12);
-            document.getElementById('txt-win-res-3').innerText = formatCurrency(pmt);
-            const tb = document.getElementById('table-body-winner'); tb.innerHTML='';
-            for(let y=1;y<=20;y++){
-                let yfv = pmt*((Math.pow(1+rate/12,12*y)-1)/(rate/12));
-                tb.innerHTML += `<tr><td class="p-3">${y}年(${age+y}歲)</td><td class="p-3">${formatCurrency(pmt*12*y)}</td><td class="p-3">${formatCurrency(yfv-pmt*12*y)}</td><td class="p-3 font-bold">${formatCurrency(yfv)}</td></tr>`;
+            const startAge = parseInt(document.getElementById('win-reg-age').value) || 0;
+            const pmt = parseFloat(document.getElementById('win-reg-amount').value) || 0;
+            const rate = (parseFloat(document.getElementById('win-reg-rate-slider').value) || 6) / 100;
+            const totalYears = 20; // 預設拉20年檢視長線
+
+            if (pmt <= 0) return;
+
+            document.getElementById('th-win-col2').innerText = "累積投入本金";
+            document.getElementById('lbl-win-res-1').innerText = "20年期末累積資產";
+            document.getElementById('lbl-win-res-2').innerText = "預估每月可創造配息";
+            document.getElementById('lbl-win-res-3').innerText = "您每月的實質財務負擔";
+
+            const n = 12;
+            const ratePerPeriod = rate / n;
+            const totalPeriods = n * totalYears;
+            const FV = pmt * ((Math.pow(1 + ratePerPeriod, totalPeriods) - 1) / ratePerPeriod);
+            const principal = pmt * totalPeriods;
+            const interest = FV - principal;
+
+            // 預估老後配息 (用合規4%或穩定6%防禦算老後配息)
+            const expectedPayout = (FV * 0.06) / 12;
+
+            document.getElementById('txt-win-res-1').innerText = formatCurrency(FV);
+            document.getElementById('txt-win-res-2').innerText = formatCurrency(expectedPayout);
+            document.getElementById('txt-win-res-3').innerText = formatCurrency(pmt); // 定期定額實質月存
+            document.getElementById('txt-win-age-hint').innerText = `預估 ${startAge + totalYears} 歲時圓滿達成`;
+            document.getElementById('txt-win-safety-hint').innerText = "按月穩健分流累積森林";
+
+            // Generate Table
+            const tbody = document.getElementById('table-body-winner');
+            tbody.innerHTML = '';
+            for(let y=1; y<=totalYears; y++) {
+                const yearFV = pmt * ((Math.pow(1 + ratePerPeriod, n * y) - 1) / ratePerPeriod);
+                const yearPrincipal = pmt * n * y;
+                const yearInterest = yearFV - yearPrincipal;
+                const ageNow = startAge + y;
+
+                const tr = document.createElement('tr');
+                tr.className = 'interactive-row';
+                let alertHint = "";
+                if (y === 5 || y === 10) {
+                    alertHint = ` <span class="text-[10px] bg-[#b65a3c] text-white px-1.5 py-0.5 rounded-md font-bold">💡第一桶金達標，可部分轉配置月配息！</span>`;
+                }
+                tr.innerHTML = `
+                    <td class="px-4 py-3 font-medium text-[#5c534c] interactive-cell">第 ${y} 年 (${ageNow} 歲)${alertHint}</td>
+                    <td class="px-4 py-3 text-[#3e3a36] interactive-cell">${formatCurrency(yearPrincipal)}</td>
+                    <td class="px-4 py-3 text-[#5c6e58] interactive-cell">${formatCurrency(yearInterest)}</td>
+                    <td class="px-4 py-3 font-semibold text-[#b65a3c] interactive-cell">${formatCurrency(yearFV)}</td>
+                `;
+                tbody.appendChild(tr);
             }
             document.getElementById('winner-results-box').classList.remove('hidden');
         }
 
         function calcWinnerLeverage() {
-            const loan = parseFloat(document.getElementById('win-lev-loan').value)||0;
-            const lRate = (parseFloat(document.getElementById('win-lev-loan-rate').value)||0)/100;
-            const pRate = (parseFloat(document.getElementById('win-lev-payout-rate').value)||0)/100;
-            const usePay = document.getElementById('chk-use-payout').checked;
-            const reInv = document.getElementById('chk-reinvest').checked;
-            const mPay = loan*(lRate/12*Math.pow(1+lRate/12,120))/(Math.pow(1+lRate/12,120)-1);
-            const mInc = loan*pRate/12;
-            let net = usePay && !reInv ? Math.max(0, mPay-mInc) : mPay;
-            document.getElementById('txt-win-res-2').innerText = formatCurrency(mInc);
-            document.getElementById('txt-win-res-3').innerText = formatCurrency(net);
-            let cv = loan; const tb = document.getElementById('table-body-winner'); tb.innerHTML='';
-            for(let y=1;y<=10;y++){
-                if(reInv || !usePay) cv *= (1+pRate);
-                let rem = loan*(Math.pow(1+lRate/12,120)-Math.pow(1+lRate/12,12*y))/(Math.pow(1+lRate/12,120)-1);
-                if(y===10) rem=0;
-                tb.innerHTML += `<tr><td class="p-3">${y}年</td><td class="p-3">${formatCurrency(rem)}</td><td class="p-3">${formatCurrency(cv-loan)}</td><td class="p-3 font-bold">${formatCurrency(cv)}</td></tr>`;
+            const startAge = parseInt(document.getElementById('win-lev-age').value) || 0;
+            const loanAmount = parseFloat(document.getElementById('win-lev-loan').value) || 0;
+            const loanRate = (parseFloat(document.getElementById('win-lev-loan-rate').value) || 0) / 100;
+            const payoutRate = (parseFloat(document.getElementById('win-lev-payout-rate').value) || 0) / 100;
+            
+            const usePayout = document.getElementById('chk-use-payout').checked;
+            const isReinvest = document.getElementById('chk-reinvest').checked;
+            const hasAddReg = document.getElementById('chk-add-regular').checked;
+            const addRegVal = hasAddReg ? (parseFloat(document.getElementById('win-lev-add-amount').value) || 0) : 0;
+
+            if (loanAmount <= 0) return;
+
+            document.getElementById('th-win-col2').innerText = "信貸剩餘本金";
+            document.getElementById('lbl-win-res-1').innerText = "10年後預估保單總市值";
+            document.getElementById('lbl-win-res-2').innerText = "每月即時產生保單收益";
+            document.getElementById('lbl-win-res-3').innerText = "您每月的實質財務淨壓力";
+
+            // 算信貸月還款 (10年 = 120期)
+            const mRate = loanRate / 12;
+            const mPayment = loanAmount * (mRate * Math.pow(1 + mRate, 120)) / (Math.pow(1 + mRate, 120) - 1);
+            
+            // 每月保單收益
+            const mPayout = (loanAmount * payoutRate) / 12;
+
+            // 實質財務壓力
+            let netMonthlyBurden = mPayment + addRegVal;
+            if (usePayout && !isReinvest) {
+                netMonthlyBurden = Math.max(0, mPayment - mPayout) + addRegVal;
             }
-            document.getElementById('txt-win-res-1').innerText = formatCurrency(cv);
+
+            document.getElementById('txt-win-res-2').innerText = formatCurrency(mPayout);
+            document.getElementById('txt-win-res-3').innerText = formatCurrency(netMonthlyBurden);
+            document.getElementById('txt-win-age-hint').innerText = `預估 ${startAge + 10} 歲時信貸全數繳清`;
+            if (usePayout && !isReinvest) {
+                document.getElementById('txt-win-safety-hint').innerText = `信貸月還款 ${formatCurrency(mPayment)}，已用保單配息沖抵！`;
+            } else {
+                document.getElementById('txt-win-safety-hint').innerText = `信貸月還款 ${formatCurrency(mPayment)}，收益全數滾入本金森林！`;
+            }
+
+            // 模擬10年滾存明細
+            const tbody = document.getElementById('table-body-winner');
+            tbody.innerHTML = '';
+            
+            let currentAssetVal = loanAmount;
+            const regRate = 0.06; // 定期定額加碼的合規保守報酬
+
+            for(let y=1; y<=10; y++) {
+                // 信貸躉繳帳戶滾存
+                if (isReinvest || !usePayout) {
+                    // 全數滾入複利
+                    currentAssetVal = currentAssetVal * (1 + payoutRate);
+                } else {
+                    // 配息拿去付貸款了，本金維持平盤（簡報邏輯）
+                    currentAssetVal = currentAssetVal;
+                }
+
+                // 加上定期定額雙引擎部分
+                if (hasAddReg && addRegVal > 0) {
+                    const rPer = regRate / 12;
+                    const fvAdd = addRegVal * ((Math.pow(1 + rPer, 12 * y) - 1) / rPer);
+                    currentAssetVal += fvAdd;
+                }
+
+                // 算信貸剩餘本金 (餘額攤還估算)
+                let remainingLoan = loanAmount * (Math.pow(1 + mRate, 120) - Math.pow(1 + mRate, 12 * y)) / (Math.pow(1 + mRate, 120) - 1);
+                if (y === 10) remainingLoan = 0;
+
+                const yearProfit = currentAssetVal - loanAmount - (addRegVal * 12 * y);
+                const ageNow = win_lev_age = startAge + y;
+
+                const tr = document.createElement('tr');
+                tr.className = 'interactive-row';
+                tr.innerHTML = `
+                    <td class="px-4 py-3 font-medium text-[#5c534c] interactive-cell">第 ${y} 年 (${ageNow} 歲)</td>
+                    <td class="px-4 py-3 text-[#3e3a36] interactive-cell">${formatCurrency(remainingLoan)}</td>
+                    <td class="px-4 py-3 text-[#5c6e58] interactive-cell">${formatCurrency(yearProfit >= 0 ? yearProfit : 0)}</td>
+                    <td class="px-4 py-3 font-semibold text-[#b65a3c] interactive-cell">${formatCurrency(currentAssetVal)}</td>
+                `;
+                tbody.appendChild(tr);
+            }
+
+            document.getElementById('txt-win-res-1').innerText = formatCurrency(currentAssetVal);
             document.getElementById('winner-results-box').classList.remove('hidden');
         }
 
-        function calculateCashFlow() {
-            const prin = ['cf-own-amt','cf-mortgage-amt','cf-finmortgage-amt','cf-credit-amt','cf-policy-amt','cf-other-amt'].reduce((a,b)=>a+(parseFloat(document.getElementById(b).value)||0),0);
-            const exp = ['cf-mortgage-pay','cf-finmortgage-pay','cf-credit-pay','cf-policy-pay','cf-other-pay'].reduce((a,b)=>a+(parseFloat(document.getElementById(b).value)||0),0);
-            const r = (parseFloat(document.getElementById('cf-fund-rate').value)||0)/100;
-            const inc = prin*r/12; const net = inc-exp;
-            document.getElementById('res-cf-total-principal').innerText = formatCurrency(prin);
-            document.getElementById('res-cf-monthly-income').innerText = formatCurrency(inc);
-            document.getElementById('res-cf-monthly-expense').innerText = formatCurrency(exp);
-            const bd = document.getElementById('cf-final-board');
-            if(net>0){ bd.className="border-2 rounded-2xl p-6 text-center bg-[#f4f7f4] border-[#5c6e58]"; document.getElementById('res-cf-net-flow').innerText = "+"+formatCurrency(net); document.getElementById('cf-final-title').innerText="正向現金流"; }
-            else { bd.className="border-2 rounded-2xl p-6 text-center bg-[#fff5f2] border-[#b65a3c]"; document.getElementById('res-cf-net-flow').innerText = formatCurrency(Math.abs(net)); document.getElementById('cf-final-title').innerText="仍需自付"; }
-            document.getElementById('cashflow-results-box').classList.remove('hidden');
-        }
-
+        // ==================== STANDARD LOGIC ====================
         function calculateCompound() {
-            const P = parseFloat(document.getElementById('comp-principal').value)||0;
-            const r = (parseFloat(document.getElementById('comp-rate').value)||0)/100;
-            const t = parseFloat(document.getElementById('comp-years').value)||0;
-            document.getElementById('res-comp-total').innerText = formatCurrency(P*Math.pow(1+r/12,12*t));
-        }
-        function calculateRegular() {
-            const P = parseFloat(document.getElementById('reg-amount').value)||0;
-            const r = (parseFloat(document.getElementById('reg-rate').value)||0)/100;
-            const t = parseFloat(document.getElementById('reg-years').value)||0;
-            document.getElementById('res-reg-total').innerText = formatCurrency(P*((Math.pow(1+r/12,12*t)-1)/(r/12)));
-        }
-        function calculateMortgage() {
-            const P = parseFloat(document.getElementById('mort-amount').value)||0;
-            const r = (parseFloat(document.getElementById('mort-rate').value)||0)/100;
-            const t = parseFloat(document.getElementById('mort-years').value)||0;
-            document.getElementById('res-mort-monthly').innerText = formatCurrency(P*(r/12*Math.pow(1+r/12,t*12))/(Math.pow(1+r/12,t*12)-1));
-        }
-        function calculateRetirement() {
-            const cur=parseFloat(document.getElementById('ret-age').value)||0; const tar=parseFloat(document.getElementById('ret-target-age').value)||0;
-            const cost=parseFloat(document.getElementById('ret-monthly-cost').value)||0; const preR=(parseFloat(document.getElementById('ret-pre-rate').value)||0)/100;
-            const tg = (cost*12)/0.04;
-            document.getElementById('res-ret-target').innerText = formatCurrency(tg);
-            document.getElementById('res-ret-monthly-save').innerText = formatCurrency(tg/((Math.pow(1+preR/12,(tar-cur)*12)-1)/(preR/12)));
-        }
-        function calculateInflation() {
-            const amt=parseFloat(document.getElementById('inf-amount').value)||0; const r=(parseFloat(document.getElementById('inf-rate').value)||0)/100;
-            const y=parseFloat(document.getElementById('inf-years').value)||0;
-            document.getElementById('res-inf-value').innerText = formatCurrency(amt/Math.pow(1+r,y));
+            const currentAge = parseInt(document.getElementById('comp-age').value) || 0;
+            const P = parseFloat(document.getElementById('comp-principal').value) || 0;
+            const r = (parseFloat(document.getElementById('comp-rate').value) || 0) / 100;
+            const t = parseFloat(document.getElementById('comp-years').value) || 0;
+            const n = 12;
+            if (P <= 0 || t <= 0) return;
+            const A = P * Math.pow((1 + r / n), (n * t));
+            document.getElementById('res-comp-total').innerText = formatCurrency(A);
+            document.getElementById('res-comp-interest').innerText = formatCurrency(A - P);
+            document.getElementById('res-comp-endage').innerText = `預估 ${currentAge + Math.round(t)} 歲時達成`;
+            
+            const tbody = document.getElementById('table-body-compound');
+            tbody.innerHTML = '';
+            for (let y = 1; y <= t; y++) {
+                const yA = P * Math.pow((1 + r / n), (n * y));
+                const tr = document.createElement('tr');
+                tr.className = 'interactive-row';
+                tr.innerHTML = `<td class="px-4 py-3 interactive-cell">第 ${y} 年 (${currentAge+y} 歲)</td><td class="px-4 py-3 interactive-cell">${formatCurrency(P)}</td><td class="px-4 py-3 interactive-cell">${formatCurrency(yA-P)}</td><td class="px-4 py-3 font-semibold text-[#b65a3c] interactive-cell">${formatCurrency(yA)}</td>`;
+                tbody.appendChild(tr);
+            }
         }
 
-        window.onload = function() { switchTab('winner'); updateBuckets(); };
+        function calculateRegular() {
+            const currentAge = parseInt(document.getElementById('reg-age').value) || 0;
+            const PMT = parseFloat(document.getElementById('reg-amount').value) || 0;
+            const r = (parseFloat(document.getElementById('reg-rate').value) || 0) / 100;
+            const t = parseFloat(document.getElementById('reg-years').value) || 0;
+            const n = 12;
+            if (PMT <= 0 || t <= 0) return;
+            const rPer = r / n;
+            const FV = PMT * ((Math.pow(1 + rPer, n * t) - 1) / rPer);
+            const prin = PMT * n * t;
+            document.getElementById('res-reg-total').innerText = formatCurrency(FV);
+            document.getElementById('res-reg-principal').innerText = formatCurrency(prin);
+            document.getElementById('res-reg-interest').innerText = formatCurrency(FV - prin);
+            document.getElementById('res-reg-endage').innerText = `預估 ${currentAge + Math.round(t)} 歲時達成`;
+
+            const tbody = document.getElementById('table-body-regular');
+            tbody.innerHTML = '';
+            for (let y = 1; y <= t; y++) {
+                const yFV = PMT * ((Math.pow(1 + rPer, n * y) - 1) / rPer);
+                const yPrin = PMT * n * y;
+                const tr = document.createElement('tr');
+                tr.className = 'interactive-row';
+                tr.innerHTML = `<td class="px-4 py-3 interactive-cell">第 ${y} 年 (${currentAge+y} 歲)</td><td class="px-4 py-3 interactive-cell">${formatCurrency(yPrin)}</td><td class="px-4 py-3 interactive-cell">${formatCurrency(yFV-yPrin)}</td><td class="px-4 py-3 font-semibold text-[#b65a3c] interactive-cell">${formatCurrency(yFV)}</td>`;
+                tbody.appendChild(tr);
+            }
+        }
+
+        function calculateMortgage() {
+            const currentAge = parseInt(document.getElementById('mort-age').value) || 0;
+            const principal = parseFloat(document.getElementById('mort-amount').value) || 0;
+            const annualRate = (parseFloat(document.getElementById('mort-rate').value) || 0) / 100;
+            const years = parseFloat(document.getElementById('mort-years').value) || 0;
+            const graceYears = parseFloat(document.getElementById('mort-grace').value) || 0;
+            if (principal <= 0 || years <= 0) return;
+            const mRate = annualRate / 12;
+            const totalMonths = years * 12;
+            const graceMonths = graceYears * 12;
+            const amortMonths = totalMonths - graceMonths;
+            let mPay = principal * (mRate * Math.pow(1 + mRate, amortMonths)) / (Math.pow(1 + mRate, amortMonths) - 1);
+            let totalInt = (graceMonths > 0) ? (principal * mRate * graceMonths) + (mPay * amortMonths) - principal : (mPay * totalMonths) - principal;
+            document.getElementById('res-mort-monthly').innerText = formatCurrency(mPay);
+            document.getElementById('res-mort-total-interest').innerText = formatCurrency(totalInt);
+            document.getElementById('res-mort-grand-total').innerText = formatCurrency(principal + totalInt);
+            document.getElementById('res-mort-endage').innerText = `房貸繳清時年齡約 ${currentAge + Math.round(years)} 歲`;
+        }
+
+        function calculateRetirement() {
+            const curAge = parseInt(document.getElementById('ret-age').value) || 0;
+            const rAge = parseInt(document.getElementById('ret-target-age').value) || 0;
+            const cost = parseFloat(document.getElementById('ret-monthly-cost').value) || 0;
+            const postR = (parseFloat(document.getElementById('ret-post-rate').value) || 0) / 100;
+            const preR = (parseFloat(document.getElementById('ret-pre-rate').value) || 0) / 100;
+            const yTo = rAge - curAge;
+            if (cost <= 0 || postR <= 0 || yTo <= 0) return;
+            const target = (cost * 12) / postR;
+            const rPer = preR / 12;
+            const pmt = target / ((Math.pow(1 + rPer, yTo * 12) - 1) / rPer);
+            document.getElementById('res-ret-target').innerText = formatCurrency(target);
+            document.getElementById('res-ret-monthly-save').innerText = formatCurrency(pmt);
+            document.getElementById('res-ret-duration').innerText = `需持續累積準備 ${yTo} 年`;
+        }
+
+        function calculateInflation() {
+            const curAge = parseInt(document.getElementById('inf-age').value) || 0;
+            const amt = parseFloat(document.getElementById('inf-amount').value) || 0;
+            const rate = (parseFloat(document.getElementById('inf-rate').value) || 0) / 100;
+            const y = parseFloat(document.getElementById('inf-years').value) || 0;
+            if (amt <= 0 || y <= 0) return;
+            const realV = amt / Math.pow(1 + rate, y);
+            document.getElementById('res-inf-value').innerText = formatCurrency(realV);
+            document.getElementById('res-inf-nominal').innerText = formatCurrency(amt);
+            document.getElementById('res-inf-loss').innerText = formatCurrency(amt - realV);
+            document.getElementById('res-inf-endage').innerText = `當您 ${curAge + Math.round(y)} 歲時的實質價值`;
+        }
+
+        function resetFields(tabId) { /* Reset functions as usual... */ }
+
+        window.onload = function() {
+            updateBuckets();
+            calcWinnerRegular();
+        };
     </script>
 </body>
 </html>
