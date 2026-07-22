@@ -47,7 +47,7 @@
         <!-- Main Card Container -->
         <div class="bg-[#fcfaf7] border border-[#e3dac9] rounded-3xl p-6 sm:p-8 shadow-xl shadow-stone-200/50">
             
-            <!-- Tabs Navigation (已乾淨移除紅框處的複利計算與通膨影響按鈕) -->
+            <!-- Tabs Navigation -->
             <div class="flex flex-wrap gap-2.5 mb-8 border-b border-[#e9e2d5] pb-5 justify-center">
                 <button onclick="switchTab('winner')" id="tab-winner" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1 tab-active">
                     <i class="fa-solid fa-crown"></i> 贏家配置
@@ -404,17 +404,60 @@
                 <div class="mt-10"><table class="w-full text-left text-sm border"><thead class="bg-[#eae3d5]"><tr><th class="px-4 py-3">時間</th><th class="px-4 py-3">本金</th><th class="px-4 py-3">利息</th><th class="px-4 py-3">總額</th></tr></thead><tbody id="table-body-regular" class="bg-white divide-y"></tbody></table></div>
             </div>
 
-            <!-- 3. Mortgage Calculator -->
+            <!-- ================= 3. 房貸計算 (已升級：寬限期前後利率與金額) ================= -->
             <div id="content-mortgage" class="tab-content hidden">
-                <h2 class="text-lg font-bold mb-6 flex items-center gap-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">房貸計算</h2>
+                <h2 class="text-lg font-bold mb-6 flex items-center gap-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">房貸計算（含寬限期前後對比）</h2>
+                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">貸款總額 (NT$)</label><input type="number" id="mort-amount" value="10000000" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36]"></div>
-                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">貸款年利率 (%)</label><input type="number" id="mort-rate" value="2.1" step="0.01" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36]"></div>
-                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">貸款年限 (年)</label><input type="number" id="mort-years" value="30" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36]"></div>
-                    <div><label class="block text-xs font-bold text-[#6e665e] mb-2">寬限期 (年)</label><input type="number" id="mort-grace" value="0" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36]"></div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#6e665e] mb-2">房貸總額 (NT$)</label>
+                        <input type="number" id="mort-amount" value="10000000" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#6e665e] mb-2">貸款總年限 (年)</label>
+                        <input type="number" id="mort-years" value="30" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#6e665e] mb-2">寬限期年數 (年)</label>
+                        <input type="number" id="mort-grace" value="5" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36]">
+                    </div>
+                    <div>
+                        <!-- 預留 -->
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#6e665e] mb-2">寬限期前年利率 (%)</label>
+                        <input type="number" id="mort-rate-before" value="2.1" step="0.01" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36]">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-[#6e665e] mb-2">寬限期後年利率 (%)</label>
+                        <input type="number" id="mort-rate-after" value="2.3" step="0.01" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-4 py-3 text-[#3e3a36]">
+                    </div>
                 </div>
-                <div class="mt-8 flex gap-4"><button onclick="calculateMortgage()" class="flex-1 bg-[#b65a3c] text-white font-bold py-3.5 px-6 rounded-xl shadow-md">立即計算</button></div>
-                <div class="text-2xl font-bold text-[#b65a3c] mt-4" id="res-mort-monthly">NT$37,463</div>
+
+                <div class="mt-8 flex gap-4">
+                    <button onclick="calculateMortgage()" class="flex-1 bg-[#b65a3c] hover:bg-[#9c4c30] text-white font-bold py-3.5 px-6 rounded-xl shadow-md transition-all">
+                        <i class="fa-solid fa-calculator"></i> 立即計算房貸壓力
+                    </button>
+                </div>
+
+                <!-- 房貸計算結果卡片 -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#b65a3c]">
+                        <div class="text-[#6e665e] text-xs font-bold mb-1">寬限期前每月應繳 (僅付利息)</div>
+                        <div class="text-2xl font-bold text-[#b65a3c]" id="res-mort-monthly-before">NT$17,500</div>
+                        <span class="text-[#8c8275] text-[10px] block mt-1">依寬限期前利率計算</span>
+                    </div>
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#8c7853]">
+                        <div class="text-[#6e665e] text-xs font-bold mb-1">寬限期後每月應繳 (本息攤還)</div>
+                        <div class="text-2xl font-bold text-[#5c534c]" id="res-mort-monthly-after">NT$39,850</div>
+                        <span class="text-[#8c8275] text-[10px] block mt-1">依寬限期後利率與剩餘年限計算</span>
+                    </div>
+                    <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#8c4830]">
+                        <div class="text-[#6e665e] text-xs font-bold mb-1">總攤還金額 (本＋息)</div>
+                        <div class="text-2xl font-bold text-[#8c4830]" id="res-mort-grand-total">NT$13,850,000</div>
+                        <span class="text-[#8c8275] text-[10px] block mt-1">含寬限期利息與後續本息總和</span>
+                    </div>
+                </div>
             </div>
 
             <!-- 4. Retirement Planning -->
@@ -776,6 +819,43 @@
             document.getElementById('cashflow-30y-results').classList.remove('hidden');
         }
 
+        // ==================== UPDATED MORTGAGE LOGIC ====================
+        function calculateMortgage() {
+            const principal = parseFloat(document.getElementById('mort-amount').value) || 0;
+            const years = parseFloat(document.getElementById('mort-years').value) || 0;
+            const graceYears = parseFloat(document.getElementById('mort-grace').value) || 0;
+            const rateBefore = (parseFloat(document.getElementById('mort-rate-before').value) || 0) / 100;
+            const rateAfter = (parseFloat(document.getElementById('mort-rate-after').value) || 0) / 100;
+
+            if (principal <= 0 || years <= 0) return;
+
+            const totalMonths = years * 12;
+            const graceMonths = graceYears * 12;
+            const amortMonths = totalMonths - graceMonths;
+
+            // 1. 寬限期前每月金額 (僅付利息，以寬限期前利率計算)
+            const monthlyBefore = principal * (rateBefore / 12);
+
+            // 2. 寬限期後每月金額 (本息攤還，以寬限期後利率、剩餘期數計算)
+            const mRateAfter = rateAfter / 12;
+            let monthlyAfter = 0;
+            if (amortMonths > 0) {
+                monthlyAfter = principal * (mRateAfter * Math.pow(1 + mRateAfter, amortMonths)) / (Math.pow(1 + mRate, amortMonths) - 1);
+            } else {
+                monthlyAfter = principal * mRateAfter;
+            }
+
+            // 3. 總攤還金額 (寬限期總利息 + 後續本息攤還總額)
+            const totalGraceInterest = monthlyBefore * graceMonths;
+            const totalAmortPaid = monthlyAfter * amortMonths;
+            const grandTotal = totalGraceInterest + totalAmortPaid;
+
+            // 更新畫面
+            document.getElementById('res-mort-monthly-before').innerText = formatCurrency(monthlyBefore);
+            document.getElementById('res-mort-monthly-after').innerText = formatCurrency(monthlyAfter);
+            document.getElementById('res-mort-grand-total').innerText = formatCurrency(grandTotal);
+        }
+
         // ==================== ORIGINAL LOGIC ====================
         function calculateRegular() {
             const currentAge = parseInt(document.getElementById('reg-age').value) || 0;
@@ -798,17 +878,6 @@
             }
         }
 
-        function calculateMortgage() {
-            const principal = parseFloat(document.getElementById('mort-amount').value) || 0;
-            const annualRate = (parseFloat(document.getElementById('mort-rate').value) || 0) / 100;
-            const years = parseFloat(document.getElementById('mort-years').value) || 0;
-            if (principal <= 0 || years <= 0) return;
-            const mRate = annualRate / 12;
-            const totalMonths = years * 12;
-            let mPay = principal * (mRate * Math.pow(1 + mRate, totalMonths)) / (Math.pow(1 + mRate, totalMonths) - 1);
-            document.getElementById('res-mort-monthly').innerText = formatCurrency(mPay);
-        }
-
         function calculateRetirement() {
             const cost = parseFloat(document.getElementById('ret-monthly-cost').value) || 0;
             const preR = (parseFloat(document.getElementById('ret-pre-rate').value) || 0) / 100;
@@ -823,6 +892,7 @@
             updateBuckets();
             calcWinnerRegular();
             calculateRegular();
+            calculateMortgage();
             updateCashflowInputSum();
         };
     </script>
