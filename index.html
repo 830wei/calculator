@@ -75,7 +75,7 @@
             <!-- Tab Contents -->
 
             <!-- 0. Winner Strategy -->
-            <div id="content-winner" class="tab-content hidden">
+            <div id="content-winner" class="tab-content">
                 <h2 class="text-xl font-bold mb-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">20%贏家資產配置提案</h2>
                 <p class="text-xs text-[#8c8275] mb-6 pl-4">掌握金錢運作規則，跳脫80%辛苦存錢的生存遊戲，開啟資產與利差的財富引擎。</p>
                 <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 mb-8">
@@ -164,20 +164,16 @@
                 </div>
             </div>
 
-            <!-- ================= NEW: 借貸現金流 (Cash Flow 30-Year System with Banks & Toggles) ================= -->
-            <div id="content-cashflow" class="tab-content">
+            <!-- ================= 借貸現金流 (Cash Flow 30-Year System) ================= -->
+            <div id="content-cashflow" class="tab-content hidden">
                 <h2 class="text-xl font-bold mb-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">資產債務整合與現金流規劃系統</h2>
                 <p class="text-xs text-[#8c8275] mb-6 pl-4">整合各家銀行貸款、填寫金融機構名稱、設定是否投入市場，並透過配息與複利雙引擎試算未來30年軌跡。</p>
 
-                <!-- Inputs Grid -->
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-                    
-                    <!-- Left: Debt & Assets -->
                     <div class="space-y-4">
                         <div class="bg-white border border-[#e3dac9] rounded-2xl p-5 shadow-sm space-y-4">
                             <h3 class="text-sm font-bold text-[#5c4a3c] border-b border-[#e3dac9] pb-2 flex items-center gap-2"><i class="fa-solid fa-coins text-[#b65a3c]"></i> 1. 資金配置與銀行/保險項目</h3>
                             
-                            <!-- House Asset -->
                             <div class="bg-[#fcfaf7] p-3 rounded-xl border border-[#e9e2d5]">
                                 <div class="text-sm font-bold text-[#8c4830] mb-2"><i class="fa-solid fa-city"></i> 房產現值評估</div>
                                 <div class="grid grid-cols-2 gap-2">
@@ -186,7 +182,6 @@
                                 </div>
                             </div>
 
-                            <!-- 購屋貸款 -->
                             <div class="bg-[#fcfaf7] p-3 rounded-xl border border-[#e9e2d5] space-y-2">
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm font-bold text-[#5c534c]"><i class="fa-solid fa-house w-5"></i> 購屋貸款 (一般房貸)</span>
@@ -204,7 +199,6 @@
                                 </div>
                             </div>
 
-                            <!-- 理財型房貸 -->
                             <div class="bg-[#fcfaf7] p-3 rounded-xl border border-[#e9e2d5] space-y-2">
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm font-bold text-[#5c534c]"><i class="fa-solid fa-building-columns w-5"></i> 理財型房貸</span>
@@ -222,7 +216,6 @@
                                 </div>
                             </div>
 
-                            <!-- 信用貸款 -->
                             <div class="bg-[#fcfaf7] p-3 rounded-xl border border-[#e9e2d5] space-y-2">
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm font-bold text-[#5c534c]"><i class="fa-solid fa-hand-holding-dollar w-5"></i> 信用貸款</span>
@@ -240,7 +233,6 @@
                                 </div>
                             </div>
 
-                            <!-- 保單貸款 -->
                             <div class="bg-[#fcfaf7] p-3 rounded-xl border border-[#e9e2d5] space-y-2">
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm font-bold text-[#5c534c]"><i class="fa-solid fa-file-contract w-5"></i> 保單貸款</span>
@@ -251,13 +243,12 @@
                                     </label>
                                 </div>
                                 <div class="grid grid-cols-2 gap-2">
-                                    <div><label class="text-[10px] text-gray-500">保險公司名稱</label><input type="text" id="cf-insurer-policy" value="公勝人壽/合作保險" class="w-full border rounded-lg px-2 py-1 text-xs"></div>
+                                    <div><label class="text-[10px] text-gray-500">保險公司名稱</label><input type="text" id="cf-insurer-policy" value="公勝人壽" class="w-full border rounded-lg px-2 py-1 text-xs"></div>
                                     <div><label class="text-[10px] text-gray-500">保貸金額 (NT$)</label><input type="number" id="cf-policy-amt" value="0" class="w-full border rounded-lg px-2 py-1 text-xs" oninput="updateCashflowInputSum()"></div>
                                     <div><label class="text-[10px] text-gray-500">利率 (%)</label><input type="number" id="cf-policy-rate" value="4.0" step="0.1" class="w-full border rounded-lg px-2 py-1 text-xs"></div>
                                 </div>
                             </div>
 
-                            <!-- 自有資金 -->
                             <div class="bg-[#fcfaf7] p-3 rounded-xl border border-[#e9e2d5] space-y-2">
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm font-bold text-[#8c4830]"><i class="fa-solid fa-piggy-bank w-5"></i> 自有資金</span>
@@ -269,11 +260,9 @@
                                 </div>
                                 <div><label class="text-[10px] text-gray-500">自有現金金額 (NT$)</label><input type="number" id="cf-own-amt" value="1000000" class="w-full border rounded-lg px-2 py-1 text-xs" oninput="updateCashflowInputSum()"></div>
                             </div>
-
                         </div>
                     </div>
 
-                    <!-- Right: Allocation & Calculation -->
                     <div class="space-y-4">
                         <div class="bg-white border border-[#e3dac9] rounded-2xl p-5 shadow-sm">
                             <h3 class="text-sm font-bold text-[#5c4a3c] mb-4 border-b border-[#e3dac9] pb-2 flex items-center gap-2"><i class="fa-solid fa-chart-pie text-[#b65a3c]"></i> 2. 資金配置比例與報酬設定</h3>
@@ -287,7 +276,6 @@
                             </div>
 
                             <div class="space-y-4">
-                                <!-- 配息資產設定 -->
                                 <div class="border border-[#e3dac9] p-3 rounded-lg relative">
                                     <div class="absolute -top-2.5 left-3 bg-white px-1 text-[11px] font-bold text-[#8c7853]">配息資產 (創造月現金流)</div>
                                     <div class="grid grid-cols-2 gap-3 mt-1">
@@ -303,7 +291,6 @@
                                     <div class="text-right text-xs font-bold mt-1 text-gray-500">投入金額: <span id="cf-amt-div-disp">NT$0</span></div>
                                 </div>
 
-                                <!-- 複利資產設定 -->
                                 <div class="border border-[#e3dac9] p-3 rounded-lg relative">
                                     <div class="absolute -top-2.5 left-3 bg-white px-1 text-[11px] font-bold text-[#5c6e58]">複利資產 (長線滾動增值)</div>
                                     <div class="grid grid-cols-2 gap-3 mt-1">
@@ -327,10 +314,7 @@
                     </div>
                 </div>
 
-                <!-- Dashboard Results (Hidden by default) -->
                 <div id="cashflow-30y-results" class="hidden space-y-8">
-                    
-                    <!-- Dark Dashboard -->
                     <div class="dark-dashboard rounded-3xl p-6 md:p-8 shadow-2xl">
                         <h2 class="text-xl font-black border-l-4 border-[#b65a3c] pl-3 mb-6">規劃成果總計</h2>
                         
@@ -351,11 +335,9 @@
                                     <span class="text-xs text-gray-400">寬限期後</span>
                                     <span class="text-2xl font-bold text-gray-300" id="dash-cov-after">0%</span>
                                 </div>
-                                <p class="text-[10px] text-gray-400 mt-4 border-t border-gray-600 pt-2">覆蓋率 >= 100%：代表配息現金流足以完全負擔貸款月付金。</p>
                             </div>
                         </div>
 
-                        <!-- 4 Metric Cards -->
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div class="bg-gray-700 rounded-xl p-4 text-center">
                                 <div class="text-xs text-gray-300 mb-2">每月淨現金流</div>
@@ -386,13 +368,11 @@
                         </div>
                     </div>
 
-                    <!-- 30 Year Cards -->
                     <div>
                         <h3 class="text-lg font-bold text-[#5c4a3c] mb-4 flex items-center gap-2"><i class="fa-regular fa-calendar"></i> 30年長期財務試算斷點</h3>
                         <div class="grid grid-cols-2 md:grid-cols-5 gap-3" id="cards-30y-container"></div>
                     </div>
 
-                    <!-- Detailed Table -->
                     <div>
                         <h3 class="text-sm font-bold text-[#5c4a3c] mb-3 flex items-center gap-2"><i class="fa-solid fa-table"></i> 長期資產與債務逐年變化表</h3>
                         <div class="overflow-x-auto rounded-xl border border-[#e3dac9] max-h-96">
@@ -413,7 +393,6 @@
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -538,10 +517,124 @@
             document.getElementById('bucket-total').innerText = formatCurrency(b1 + b2 + b3);
         }
 
+        // ==================== WINNER STRATEGY LOGIC ====================
+        function calcWinnerRegular() {
+            const startAge = parseInt(document.getElementById('win-reg-age').value) || 0;
+            const pmt = parseFloat(document.getElementById('win-reg-amount').value) || 0;
+            const rate = (parseFloat(document.getElementById('win-reg-rate-text').value) || 6) / 100;
+            const totalYears = 20;
+
+            if (pmt <= 0) return;
+
+            document.getElementById('th-win-col2').innerText = "累積投入本金";
+            document.getElementById('lbl-win-res-1').innerText = "20年期末累積資產";
+            document.getElementById('lbl-win-res-2').innerText = "預估每月可創造配息";
+            document.getElementById('lbl-win-res-3').innerText = "您每月的實質財務負擔";
+
+            const n = 12;
+            const ratePerPeriod = rate / n;
+            const totalPeriods = n * totalYears;
+            const FV = pmt * ((Math.pow(1 + ratePerPeriod, totalPeriods) - 1) / ratePerPeriod);
+            const expectedPayout = (FV * 0.06) / 12;
+
+            document.getElementById('txt-win-res-1').innerText = formatCurrency(FV);
+            document.getElementById('txt-win-res-2').innerText = formatCurrency(expectedPayout);
+            document.getElementById('txt-win-res-3').innerText = formatCurrency(pmt);
+            document.getElementById('txt-win-age-hint').innerText = `預估 ${startAge + totalYears} 歲時圓滿達成`;
+            document.getElementById('txt-win-safety-hint').innerText = "按月穩健分流累積森林";
+
+            const tbody = document.getElementById('table-body-winner');
+            tbody.innerHTML = '';
+            for(let y=1; y<=totalYears; y++) {
+                const yearFV = pmt * ((Math.pow(1 + ratePerPeriod, n * y) - 1) / ratePerPeriod);
+                const yearPrincipal = pmt * n * y;
+                const yearInterest = yearFV - yearPrincipal;
+                const ageNow = startAge + y;
+
+                const tr = document.createElement('tr');
+                tr.className = 'interactive-row';
+                let alertHint = "";
+                if (y === 5 || y === 10) {
+                    alertHint = ` <span class="text-[10px] bg-[#b65a3c] text-white px-1.5 py-0.5 rounded-md font-bold">💡第一桶金達標，可部分轉配置月配息！</span>`;
+                }
+                tr.innerHTML = `
+                    <td class="px-4 py-3 font-medium text-[#5c534c] interactive-cell">第 ${y} 年 (${ageNow} 歲)${alertHint}</td>
+                    <td class="px-4 py-3 text-[#3e3a36] interactive-cell">${formatCurrency(yearPrincipal)}</td>
+                    <td class="px-4 py-3 text-[#5c6e58] interactive-cell">${formatCurrency(yearInterest)}</td>
+                    <td class="px-4 py-3 font-semibold text-[#b65a3c] interactive-cell">${formatCurrency(yearFV)}</td>
+                `;
+                tbody.appendChild(tr);
+            }
+            document.getElementById('winner-results-box').classList.remove('hidden');
+        }
+
+        function calcWinnerLeverage() {
+            const startAge = parseInt(document.getElementById('win-lev-age').value) || 0;
+            const loanAmount = parseFloat(document.getElementById('win-lev-loan').value) || 0;
+            const loanRate = (parseFloat(document.getElementById('win-lev-loan-rate').value) || 0) / 100;
+            const payoutRate = (parseFloat(document.getElementById('win-lev-payout-rate').value) || 0) / 100;
+            
+            const usePayout = document.getElementById('chk-use-payout').checked;
+            const isReinvest = document.getElementById('chk-reinvest').checked;
+            const hasAddReg = document.getElementById('chk-add-regular').checked;
+            const addRegVal = hasAddReg ? (parseFloat(document.getElementById('win-lev-add-amount').value) || 0) : 0;
+
+            if (loanAmount <= 0) return;
+
+            document.getElementById('th-win-col2').innerText = "信貸剩餘本金";
+            document.getElementById('lbl-win-res-1').innerText = "10年後預估保單總市值";
+            document.getElementById('lbl-win-res-2').innerText = "每月即時產生保單收益";
+            document.getElementById('lbl-win-res-3').innerText = "您每月的實質財務淨壓力";
+
+            const mRate = loanRate / 12;
+            const mPayment = loanAmount * (mRate * Math.pow(1 + mRate, 120)) / (Math.pow(1 + mRate, 120) - 1);
+            const mPayout = (loanAmount * payoutRate) / 12;
+
+            let netMonthlyBurden = mPayment + addRegVal;
+            if (usePayout && !isReinvest) {
+                netMonthlyBurden = Math.max(0, mPayment - mPayout) + addRegVal;
+            }
+
+            document.getElementById('txt-win-res-2').innerText = formatCurrency(mPayout);
+            document.getElementById('txt-win-res-3').innerText = formatCurrency(netMonthlyBurden);
+            document.getElementById('txt-win-age-hint').innerText = `預估 ${startAge + 10} 歲時信貸全數繳清`;
+
+            const tbody = document.getElementById('table-body-winner');
+            tbody.innerHTML = '';
+            let currentAssetVal = loanAmount;
+            const regRate = 0.06;
+
+            for(let y=1; y<=10; y++) {
+                if (isReinvest || !usePayout) {
+                    currentAssetVal = currentAssetVal * (1 + payoutRate);
+                }
+                if (hasAddReg && addRegVal > 0) {
+                    const rPer = regRate / 12;
+                    const fvAdd = addRegVal * ((Math.pow(1 + rPer, 12 * y) - 1) / rPer);
+                    currentAssetVal += fvAdd;
+                }
+                let remainingLoan = loanAmount * (Math.pow(1 + mRate, 120) - Math.pow(1 + mRate, 12 * y)) / (Math.pow(1 + mRate, 120) - 1);
+                if (y === 10) remainingLoan = 0;
+
+                const yearProfit = currentAssetVal - loanAmount - (addRegVal * 12 * y);
+                const ageNow = startAge + y;
+
+                tbody.innerHTML += `
+                    <tr class="interactive-row">
+                        <td class="px-4 py-3 font-medium text-[#5c534c] interactive-cell">第 ${y} 年 (${ageNow} 歲)</td>
+                        <td class="px-4 py-3 text-[#3e3a36] interactive-cell">${formatCurrency(remainingLoan)}</td>
+                        <td class="px-4 py-3 text-[#5c6e58] interactive-cell">${formatCurrency(yearProfit >= 0 ? yearProfit : 0)}</td>
+                        <td class="px-4 py-3 font-semibold text-[#b65a3c] interactive-cell">${formatCurrency(currentAssetVal)}</td>
+                    </tr>
+                `;
+            }
+            document.getElementById('txt-win-res-1').innerText = formatCurrency(currentAssetVal);
+            document.getElementById('winner-results-box').classList.remove('hidden');
+        }
+
         // ==================== 30-YEAR CASHFLOW SYSTEM LOGIC ====================
         function updateCashflowInputSum() {
             let total = 0;
-            // 檢查「是否投入市場」開關是否有勾選，有勾選才計入資金池
             if(document.getElementById('cf-tgl-mortgage').checked) total += (parseFloat(document.getElementById('cf-mortgage-amt').value) || 0);
             if(document.getElementById('cf-tgl-finmortgage').checked) total += (parseFloat(document.getElementById('cf-finmortgage-amt').value) || 0);
             if(document.getElementById('cf-tgl-credit').checked) total += (parseFloat(document.getElementById('cf-credit-amt').value) || 0);
@@ -584,7 +677,6 @@
             const initialHouseVal = parseFloat(document.getElementById('cf-house-value').value) || 0;
             const houseApprRate = (parseFloat(document.getElementById('cf-house-appr').value) || 0) / 100;
             
-            // 各項貸款與開關
             const tglMort = document.getElementById('cf-tgl-mortgage').checked;
             const mortAmt = tglMort ? (parseFloat(document.getElementById('cf-mortgage-amt').value) || 0) : 0;
             const mortRate = (parseFloat(document.getElementById('cf-mortgage-rate').value) || 0) / 100;
@@ -607,10 +699,8 @@
             const tglOwn = document.getElementById('cf-tgl-own').checked;
             const ownAmt = tglOwn ? (parseFloat(document.getElementById('cf-own-amt').value) || 0) : 0;
 
-            // 總投入市場本金
             const totalInvest = mortAmt + finAmt + credAmt + polAmt + ownAmt;
 
-            // 實體總負債計算（包含未投入市場但實際存在的負債）
             const realMortAmt = parseFloat(document.getElementById('cf-mortgage-amt').value) || 0;
             const realFinAmt = parseFloat(document.getElementById('cf-finmortgage-amt').value) || 0;
             const realCredAmt = parseFloat(document.getElementById('cf-credit-amt').value) || 0;
@@ -717,39 +807,92 @@
             document.getElementById('cashflow-30y-results').classList.remove('hidden');
         }
 
-        // 舊有功能保持
+        // ==================== ORIGINAL LOGIC ====================
         function calculateCompound() {
+            const currentAge = parseInt(document.getElementById('comp-age').value) || 0;
             const P = parseFloat(document.getElementById('comp-principal').value) || 0;
             const r = (parseFloat(document.getElementById('comp-rate').value) || 0) / 100;
             const t = parseFloat(document.getElementById('comp-years').value) || 0;
-            document.getElementById('res-comp-total').innerText = formatCurrency(P * Math.pow(1 + r/12, 12*t));
+            const n = 12;
+            if (P <= 0 || t <= 0) return;
+            const A = P * Math.pow((1 + r / n), (n * t));
+            document.getElementById('res-comp-total').innerText = formatCurrency(A);
+            document.getElementById('res-comp-interest').innerText = formatCurrency(A - P);
+            document.getElementById('res-comp-endage').innerText = `預估 ${currentAge + Math.round(t)} 歲時達成`;
+            
+            const tbody = document.getElementById('table-body-compound');
+            tbody.innerHTML = '';
+            for (let y = 1; y <= t; y++) {
+                const yA = P * Math.pow((1 + r / n), (n * y));
+                tbody.innerHTML += `<tr class="interactive-row"><td class="px-4 py-3">第 ${y} 年 (${currentAge+y} 歲)</td><td class="px-4 py-3">${formatCurrency(P)}</td><td class="px-4 py-3">${formatCurrency(yA-P)}</td><td class="px-4 py-3 font-semibold text-[#b65a3c]">${formatCurrency(yA)}</td></tr>`;
+            }
         }
+
         function calculateRegular() {
-            const P = parseFloat(document.getElementById('reg-amount').value) || 0;
+            const currentAge = parseInt(document.getElementById('reg-age').value) || 0;
+            const PMT = parseFloat(document.getElementById('reg-amount').value) || 0;
             const r = (parseFloat(document.getElementById('reg-rate').value) || 0) / 100;
             const t = parseFloat(document.getElementById('reg-years').value) || 0;
-            document.getElementById('res-reg-total').innerText = formatCurrency(P * ((Math.pow(1 + r/12, 12*t) - 1) / (r/12)));
+            const n = 12;
+            if (PMT <= 0 || t <= 0) return;
+            const rPer = r / n;
+            const FV = PMT * ((Math.pow(1 + rPer, n * t) - 1) / rPer);
+            const prin = PMT * n * t;
+            document.getElementById('res-reg-total').innerText = formatCurrency(FV);
+            document.getElementById('res-reg-principal').innerText = formatCurrency(prin);
+            document.getElementById('res-reg-interest').innerText = formatCurrency(FV - prin);
+            document.getElementById('res-reg-endage').innerText = `預估 ${currentAge + Math.round(t)} 歲時達成`;
+
+            const tbody = document.getElementById('table-body-regular');
+            tbody.innerHTML = '';
+            for (let y = 1; y <= t; y++) {
+                const yFV = PMT * ((Math.pow(1 + rPer, n * y) - 1) / rPer);
+                const yPrin = PMT * n * y;
+                tbody.innerHTML += `<tr class="interactive-row"><td class="px-4 py-3">第 ${y} 年 (${currentAge+y} 歲)</td><td class="px-4 py-3">${formatCurrency(yPrin)}</td><td class="px-4 py-3">${formatCurrency(yFV-yPrin)}</td><td class="px-4 py-3 font-semibold text-[#b65a3c]">${formatCurrency(yFV)}</td></tr>`;
+            }
         }
+
         function calculateMortgage() {
-            const P = parseFloat(document.getElementById('mort-amount').value) || 0;
-            const r = (parseFloat(document.getElementById('mort-rate').value) || 0) / 100 / 12;
-            const n = (parseFloat(document.getElementById('mort-years').value) || 0) * 12;
-            document.getElementById('res-mort-monthly').innerText = formatCurrency(P * (r * Math.pow(1+r, n)) / (Math.pow(1+r, n) - 1));
+            const currentAge = parseInt(document.getElementById('mort-age').value) || 0;
+            const principal = parseFloat(document.getElementById('mort-amount').value) || 0;
+            const annualRate = (parseFloat(document.getElementById('mort-rate').value) || 0) / 100;
+            const years = parseFloat(document.getElementById('mort-years').value) || 0;
+            const graceYears = parseFloat(document.getElementById('mort-grace').value) || 0;
+            if (principal <= 0 || years <= 0) return;
+            const mRate = annualRate / 12;
+            const totalMonths = years * 12;
+            const graceMonths = graceYears * 12;
+            const amortMonths = totalMonths - graceMonths;
+            let mPay = principal * (mRate * Math.pow(1 + mRate, amortMonths)) / (Math.pow(1 + mRate, amortMonths) - 1);
+            let totalInt = (graceMonths > 0) ? (principal * mRate * graceMonths) + (mPay * amortMonths) - principal : (mPay * totalMonths) - principal;
+            document.getElementById('res-mort-monthly').innerText = formatCurrency(mPay);
+            document.getElementById('res-mort-total-interest').innerText = formatCurrency(totalInt);
+            document.getElementById('res-mort-grand-total').innerText = formatCurrency(principal + totalInt);
         }
+
         function calculateRetirement() {
             const cost = parseFloat(document.getElementById('ret-monthly-cost').value) || 0;
             const preR = (parseFloat(document.getElementById('ret-pre-rate').value) || 0) / 100;
-            const tg = (cost * 12) / 0.04;
-            document.getElementById('res-ret-monthly-save').innerText = formatCurrency(tg / ((Math.pow(1 + preR/12, 300) - 1) / (preR/12))) + " (每月需存)";
+            const target = (cost * 12) / 0.04;
+            const rPer = preR / 12;
+            const pmt = target / ((Math.pow(1 + rPer, 300) - 1) / rPer);
+            document.getElementById('res-ret-target').innerText = formatCurrency(target);
+            document.getElementById('res-ret-monthly-save').innerText = formatCurrency(pmt) + " (每月需存)";
         }
+
         function calculateInflation() {
             const amt = parseFloat(document.getElementById('inf-amount').value) || 0;
-            const r = (parseFloat(document.getElementById('inf-rate').value) || 0) / 100;
-            document.getElementById('res-inf-value').innerText = formatCurrency(amt / Math.pow(1 + r, 20));
+            const rate = (parseFloat(document.getElementById('inf-rate').value) || 0) / 100;
+            const realV = amt / Math.pow(1 + rate, 20);
+            document.getElementById('res-inf-value').innerText = formatCurrency(realV);
         }
 
         window.onload = function() {
-            switchTab('cashflow');
+            switchTab('winner'); // 預設打開贏家配置
+            updateBuckets();
+            calcWinnerRegular();
+            calculateCompound();
+            calculateRegular();
             updateCashflowInputSum();
         };
     </script>
