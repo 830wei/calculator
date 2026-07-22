@@ -47,13 +47,13 @@
         <!-- Main Card Container -->
         <div class="bg-[#fcfaf7] border border-[#e3dac9] rounded-3xl p-6 sm:p-8 shadow-xl shadow-stone-200/50">
             
-            <!-- Tabs Navigation -->
+            <!-- Tabs Navigation (已將借貸現金流改為財務整合) -->
             <div class="flex flex-wrap gap-2.5 mb-8 border-b border-[#e9e2d5] pb-5 justify-center">
                 <button onclick="switchTab('winner')" id="tab-winner" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1 tab-active">
                     <i class="fa-solid fa-crown"></i> 贏家配置
                 </button>
                 <button onclick="switchTab('cashflow')" id="tab-cashflow" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1">
-                    <i class="fa-solid fa-scale-balanced"></i> 借貸現金流
+                    <i class="fa-solid fa-scale-balanced"></i> 財務整合
                 </button>
                 <button onclick="switchTab('regular')" id="tab-regular" class="tab-btn px-3 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 bg-[#eae3d5] text-[#5c534c] hover:bg-[#dfd7c9] flex items-center justify-center gap-1">
                     <i class="fa-solid fa-calendar-days"></i> 定期定額
@@ -158,7 +158,7 @@
                 </div>
             </div>
 
-            <!-- ================= 借貸現金流 (Cash Flow 30-Year System) ================= -->
+            <!-- ================= 財務整合 (Cash Flow 30-Year System) ================= -->
             <div id="content-cashflow" class="tab-content hidden">
                 <h2 class="text-xl font-bold mb-2 text-[#5c4a3c] border-l-4 border-[#b65a3c] pl-3">資產債務整合與現金流規劃系統</h2>
                 <p class="text-xs text-[#8c8275] mb-6 pl-4">整合各家銀行貸款、填寫金融機構名稱、設定是否投入市場，並透過配息與複利雙引擎試算未來30年軌跡。</p>
@@ -490,18 +490,21 @@
             const activeBtn = document.getElementById('tab-' + tabId);
             activeBtn.classList.add('tab-active', 'bg-[#b65a3c]', 'text-white');
             
-            // 當切換到房貸計算分頁時，自動執行一次計算
             if(tabId === 'mortgage') {
                 calculateMortgage();
             }
         }
 
         function formatCurrency(amount) {
-            return 'NT$' + Math.round(amount).toLocaleString('zh-TW');
+            if (isNaN(amount) || amount === null) return 'NT$0';
+            return 'NT$' + Math.round(amount).toLocaleString('en-US');
         }
 
         function formatShortCurrency(amount) {
-            if(Math.abs(amount) >= 10000) return 'NT$' + (Math.round(amount)/10000).toFixed(1) + '萬';
+            if (isNaN(amount) || amount === null) return 'NT$0';
+            if (Math.abs(amount) >= 10000) {
+                return 'NT$' + (Math.round(amount) / 10000).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + '萬';
+            }
             return formatCurrency(amount);
         }
 
@@ -562,19 +565,18 @@
                 const yearInterest = yearFV - yearPrincipal;
                 const ageNow = startAge + y;
 
-                const tr = document.createElement('tr');
-                tr.className = 'interactive-row';
                 let alertHint = "";
                 if (y === 5 || y === 10) {
                     alertHint = ` <span class="text-[10px] bg-[#b65a3c] text-white px-1.5 py-0.5 rounded-md font-bold">💡第一桶金達標，可部分轉配置月配息！</span>`;
                 }
-                tr.innerHTML = `
-                    <td class="px-4 py-3 font-medium text-[#5c534c] interactive-cell">第 ${y} 年 (${ageNow} 歲)${alertHint}</td>
-                    <td class="px-4 py-3 text-[#3e3a36] interactive-cell">${formatCurrency(yearPrincipal)}</td>
-                    <td class="px-4 py-3 text-[#5c6e58] interactive-cell">${formatCurrency(yearInterest)}</td>
-                    <td class="px-4 py-3 font-semibold text-[#b65a3c] interactive-cell">${formatCurrency(yearFV)}</td>
+                tbody.innerHTML += `
+                    <tr class="interactive-row">
+                        <td class="px-4 py-3 font-medium text-[#5c534c] interactive-cell">第 ${y} 年 (${ageNow} 歲)${alertHint}</td>
+                        <td class="px-4 py-3 text-[#3e3a36] interactive-cell">${formatCurrency(yearPrincipal)}</td>
+                        <td class="px-4 py-3 text-[#5c6e58] interactive-cell">${formatCurrency(yearInterest)}</td>
+                        <td class="px-4 py-3 font-semibold text-[#b65a3c] interactive-cell">${formatCurrency(yearFV)}</td>
+                    </tr>
                 `;
-                tbody.appendChild(tr);
             }
             document.getElementById('winner-results-box').classList.remove('hidden');
         }
@@ -877,12 +879,21 @@
             }
         }
 
+        function calculateRetirement() {
+            const cost = parseFloat(document.getElementById('ret-monthly-cost').value) || 0;
+            const preR = (parseFloat(document.getElementById('ret-pre-rate').value) || 0) / 100;
+            const target = (cost * 12) / 0.04;
+            const rPer = preR / 12;
+            const pmt = target / ((Math.pow(1 + rPer, 300) - 1) / rPer);
+            document.getElementById('res-ret-monthly-save').innerText = formatCurrency(pmt) + " (每月需存)";
+        }
+
         window.onload = function() {
             switchTab('winner');
             updateBuckets();
             calcWinnerRegular();
             calculateRegular();
-            calculateMortgage(); // 頁面載入時自動先算一次房貸
+            calculateMortgage();
             updateCashflowInputSum();
         };
     </script>
