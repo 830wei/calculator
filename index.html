@@ -117,10 +117,16 @@
                     </div>
 
                     <div id="view-winner-leverage" class="space-y-4 hidden">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                             <div><label class="block text-xs font-bold text-[#6e665e] mb-1">目前年齡</label><input type="number" id="win-lev-age" value="30" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]"></div>
                             <div><label class="block text-xs font-bold text-[#6e665e] mb-1">信貸申請金額 (NT$)</label><input type="number" id="win-lev-loan" value="2540000" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]"></div>
                             <div><label class="block text-xs font-bold text-[#6e665e] mb-1">信貸年利率 (%)</label><input type="number" id="win-lev-loan-rate" value="2.5" step="0.1" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]"></div>
+                            <div>
+                                <label class="block text-xs font-bold text-[#6e665e] mb-1">信貸年期 (年)</label>
+                                <select id="win-lev-years" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]">
+                                    <option value="1">1 年</option><option value="2">2 年</option><option value="3">3 年</option><option value="4">4 年</option><option value="5">5 年</option><option value="6">6 年</option><option value="7">7 年</option><option value="8">8 年</option><option value="9">9 年</option><option value="10" selected>10 年</option>
+                                </select>
+                            </div>
                             <div><label class="block text-xs font-bold text-[#6e665e] mb-1">設定保單年配息率 (%)</label><input type="number" id="win-lev-payout-rate" value="10" step="0.5" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]"></div>
                         </div>
                         <div class="bg-[#f7f3ed] p-4 rounded-xl space-y-2 border border-[#e3dac9]">
@@ -146,13 +152,25 @@
                         <div class="bg-[#f5efe4] border border-[#e6dcce] rounded-2xl p-5 border-l-4 border-[#5c6e58]"><div class="text-[#6e665e] text-xs font-bold mb-1" id="lbl-win-res-3">您每月的實質財務負擔</div><div class="text-2xl font-bold text-[#5c6e58]" id="txt-win-res-3">NT$0</div><span class="text-[#8c8275] text-[10px] block mt-1" id="txt-win-safety-hint">已啟動信貸沖抵機制</span></div>
                     </div>
                     <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 flex flex-col md:flex-row gap-4 items-center justify-between">
-                        <div class="space-y-1"><h4 class="text-sm font-bold text-amber-900 flex items-center gap-1.5"><i class="fa-solid fa-shield-halved text-[#b65a3c]"></i> 瑋瑋經紀人獨家解鎖：本計畫內建「必勝安全防護網」</h4><p class="text-xs text-amber-800">一般券商理財若發生失能中斷收入，計畫將直接斷供破產；本保險提案具備<b><span>「失能豁免保費機制」</span></b>，發生風險時公司代您存入約定金額至計畫圓滿，夢想100%必勝達成！</p></div>
+                        <div class="space-y-1"><h4 class="text-sm font-bold text-amber-900 flex items-center gap-1.5"><i class="fa-solid fa-shield-halved text-[#b65a3c]"></i> 瑋瑋經紀人獨家解鎖：本計畫內建「必勝安全防護網」</h4><p class="text-xs text-amber-800">一般券商理財若發生失能中斷收入，計畫將直接斷供破產；本保險提案具備<b>「失能豁免保費機制」</b>，發生風險時公司代您存入約定金額至計畫圓滿，夢想100%必勝達成！</p></div>
                         <span class="px-3 py-1 bg-[#b65a3c] text-white rounded-full text-xs font-bold whitespace-nowrap">計畫已受防護 🛡️</span>
                     </div>
                     <div>
                         <h3 class="text-sm font-bold text-[#5c4a3c] mb-3 flex items-center gap-2"><i class="fa-solid fa-table-list text-[#b65a3c]"></i> 贏家配置資產逐年明細表 (滑鼠移入數字可放大提示)</h3>
                         <div class="overflow-x-auto rounded-xl border border-[#e3dac9]">
-                            <table class="w-full text-left text-sm"><thead class="bg-[#eae3d5] text-[#5c534c] font-bold"><tr><th class="px-4 py-3">時間 (年齡)</th><th class="px-4 py-3" id="th-win-col2">累積投入本金</th><th class="px-4 py-3">累積發酵利益</th><th class="px-4 py-3">當年度期末總值</th></tr></thead><tbody id="table-body-winner" class="bg-[#fdfdfd] divide-y divide-[#e9e2d5]"></tbody></table>
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-[#eae3d5] text-[#5c534c] font-bold">
+                                    <tr>
+                                        <th class="px-3 py-3">時間 (年齡)</th>
+                                        <th class="px-3 py-3" id="th-win-col2">累積投入本金</th>
+                                        <th class="px-3 py-3" id="th-win-col-pay">每月還款金額</th>
+                                        <th class="px-3 py-3" id="th-win-col-gain">當年度投資收益 (%)</th>
+                                        <th class="px-3 py-3">累積發酵利益</th>
+                                        <th class="px-3 py-3">當年度期末總值</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body-winner" class="bg-[#fdfdfd] divide-y divide-[#e9e2d5]"></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -571,10 +589,12 @@
                 }
                 tbody.innerHTML += `
                     <tr class="interactive-row">
-                        <td class="px-4 py-3 font-medium text-[#5c534c] interactive-cell">第 ${y} 年 (${ageNow} 歲)${alertHint}</td>
-                        <td class="px-4 py-3 text-[#3e3a36] interactive-cell">${formatCurrency(yearPrincipal)}</td>
-                        <td class="px-4 py-3 text-[#5c6e58] interactive-cell">${formatCurrency(yearInterest)}</td>
-                        <td class="px-4 py-3 font-semibold text-[#b65a3c] interactive-cell">${formatCurrency(yearFV)}</td>
+                        <td class="px-3 py-3 font-medium text-[#5c534c] interactive-cell">第 ${y} 年 (${ageNow} 歲)${alertHint}</td>
+                        <td class="px-3 py-3 text-[#3e3a36] interactive-cell">${formatCurrency(yearPrincipal)}</td>
+                        <td class="px-3 py-3 text-[#8c7853] interactive-cell">--</td>
+                        <td class="px-3 py-3 text-[#5c6e58] interactive-cell">--</td>
+                        <td class="px-3 py-3 text-[#5c6e58] interactive-cell">${formatCurrency(yearInterest)}</td>
+                        <td class="px-3 py-3 font-semibold text-[#b65a3c] interactive-cell">${formatCurrency(yearFV)}</td>
                     </tr>
                 `;
             }
@@ -585,6 +605,7 @@
             const startAge = parseInt(document.getElementById('win-lev-age').value) || 0;
             const loanAmount = parseFloat(document.getElementById('win-lev-loan').value) || 0;
             const loanRate = (parseFloat(document.getElementById('win-lev-loan-rate').value) || 0) / 100;
+            const loanYears = parseInt(document.getElementById('win-lev-years').value) || 10;
             const payoutRate = (parseFloat(document.getElementById('win-lev-payout-rate').value) || 0) / 100;
             
             const usePayout = document.getElementById('chk-use-payout').checked;
@@ -595,12 +616,13 @@
             if (loanAmount <= 0) return;
 
             document.getElementById('th-win-col2').innerText = "信貸剩餘本金";
-            document.getElementById('lbl-win-res-1').innerText = "10年後預估保單總市值";
+            document.getElementById('lbl-win-res-1').innerText = `${loanYears}年後預估保單總市值`;
             document.getElementById('lbl-win-res-2').innerText = "每月即時產生保單收益";
             document.getElementById('lbl-win-res-3').innerText = "您每月的實質財務淨壓力";
 
+            const totalMonths = loanYears * 12;
             const mRate = loanRate / 12;
-            const mPayment = loanAmount * (mRate * Math.pow(1 + mRate, 120)) / (Math.pow(1 + mRate, 120) - 1);
+            const mPayment = loanAmount * (mRate * Math.pow(1 + mRate, totalMonths)) / (Math.pow(1 + mRate, totalMonths) - 1);
             const mPayout = (loanAmount * payoutRate) / 12;
 
             let netMonthlyBurden = mPayment + addRegVal;
@@ -610,14 +632,14 @@
 
             document.getElementById('txt-win-res-2').innerText = formatCurrency(mPayout);
             document.getElementById('txt-win-res-3').innerText = formatCurrency(netMonthlyBurden);
-            document.getElementById('txt-win-age-hint').innerText = `預估 ${startAge + 10} 歲時信貸全數繳清`;
+            document.getElementById('txt-win-age-hint').innerText = `預估 ${startAge + loanYears} 歲時信貸全數繳清`;
 
             const tbody = document.getElementById('table-body-winner');
             tbody.innerHTML = '';
             let currentAssetVal = loanAmount;
             const regRate = 0.06;
 
-            for(let y=1; y<=10; y++) {
+            for(let y = 1; y <= loanYears; y++) {
                 if (isReinvest || !usePayout) {
                     currentAssetVal = currentAssetVal * (1 + payoutRate);
                 }
@@ -626,18 +648,20 @@
                     const fvAdd = addRegVal * ((Math.pow(1 + rPer, 12 * y) - 1) / rPer);
                     currentAssetVal += fvAdd;
                 }
-                let remainingLoan = loanAmount * (Math.pow(1 + mRate, 120) - Math.pow(1 + mRate, 12 * y)) / (Math.pow(1 + mRate, 120) - 1);
-                if (y === 10) remainingLoan = 0;
+                let remainingLoan = loanAmount * (Math.pow(1 + mRate, totalMonths) - Math.pow(1 + mRate, 12 * y)) / (Math.pow(1 + mRate, totalMonths) - 1);
+                if (y === loanYears) remainingLoan = 0;
 
                 const yearProfit = currentAssetVal - loanAmount - (addRegVal * 12 * y);
                 const ageNow = startAge + y;
 
                 tbody.innerHTML += `
                     <tr class="interactive-row">
-                        <td class="px-4 py-3 font-medium text-[#5c534c] interactive-cell">第 ${y} 年 (${ageNow} 歲)</td>
-                        <td class="px-4 py-3 text-[#3e3a36] interactive-cell">${formatCurrency(remainingLoan)}</td>
-                        <td class="px-4 py-3 text-[#5c6e58] interactive-cell">${formatCurrency(yearProfit >= 0 ? yearProfit : 0)}</td>
-                        <td class="px-4 py-3 font-semibold text-[#b65a3c] interactive-cell">${formatCurrency(currentAssetVal)}</td>
+                        <td class="px-3 py-3 font-medium text-[#5c534c] interactive-cell">第 ${y} 年 (${ageNow} 歲)</td>
+                        <td class="px-3 py-3 text-[#3e3a36] interactive-cell">${formatCurrency(remainingLoan)}</td>
+                        <td class="px-3 py-3 text-[#8c7853] interactive-cell">${formatCurrency(mPayment)} /月</td>
+                        <td class="px-3 py-3 text-[#5c6e58] interactive-cell">${(payoutRate * 100).toFixed(1)}% (${formatCurrency(loanAmount * payoutRate)})</td>
+                        <td class="px-3 py-3 text-[#5c6e58] interactive-cell">${formatCurrency(yearProfit >= 0 ? yearProfit : 0)}</td>
+                        <td class="px-3 py-3 font-semibold text-[#b65a3c] interactive-cell">${formatCurrency(currentAssetVal)}</td>
                     </tr>
                 `;
             }
@@ -834,10 +858,8 @@
             const graceMonths = graceYears * 12;
             const amortMonths = totalMonths - graceMonths;
 
-            // 1. 寬限期前每月金額 (僅付利息)
             const monthlyBefore = principal * (rateBefore / 12);
 
-            // 2. 寬限期後每月金額 (本息攤還)
             const mRateAfter = rateAfter / 12;
             let monthlyAfter = 0;
             if (amortMonths > 0) {
@@ -846,12 +868,10 @@
                 monthlyAfter = principal * mRateAfter;
             }
 
-            // 3. 總攤還金額
             const totalGraceInterest = monthlyBefore * graceMonths;
             const totalAmortPaid = monthlyAfter * amortMonths;
             const grandTotal = totalGraceInterest + totalAmortPaid;
 
-            // 回填畫面
             document.getElementById('res-mort-monthly-before').innerText = formatCurrency(monthlyBefore);
             document.getElementById('res-mort-monthly-after').innerText = formatCurrency(monthlyAfter);
             document.getElementById('res-mort-grand-total').innerText = formatCurrency(grandTotal);
