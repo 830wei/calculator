@@ -117,12 +117,11 @@
                     </div>
 
                     <div id="view-winner-leverage" class="space-y-4 hidden">
-                        <!-- 已升級為 6 個欄位，加入實際投入金額 -->
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             <div><label class="block text-xs font-bold text-[#6e665e] mb-1">目前年齡</label><input type="number" id="win-lev-age" value="31" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]"></div>
                             <div><label class="block text-xs font-bold text-[#6e665e] mb-1">信貸申請金額 (NT$)</label><input type="text" inputmode="numeric" id="win-lev-loan" value="1,000,000" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c] comma-input"></div>
                             <div><label class="block text-xs font-bold text-[#b65a3c] mb-1">實際投入金額 (NT$)</label><input type="text" inputmode="numeric" id="win-lev-invest" value="1,000,000" class="w-full bg-[#fcfaf7] border border-[#b65a3c] rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#b65a3c] comma-input"></div>
-                            <div><label class="block text-xs font-bold text-[#6e665e] mb-1">信貸年利率 (%)</label><input type="number" id="win-lev-loan-rate" value="4.9" step="0.1" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]"></div>
+                            <div><label class="block text-xs font-bold text-[#6e665e] mb-1">信貸年利率 (%)</label><input type="number" id="win-lev-loan-rate" value="4.8" step="0.1" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]"></div>
                             <div>
                                 <label class="block text-xs font-bold text-[#6e665e] mb-1">信貸年期 (年)</label>
                                 <select id="win-lev-years" class="w-full bg-[#fdfdfd] border border-[#e3dac9] rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#b65a3c]">
@@ -607,7 +606,9 @@
             const n = 12;
             const ratePerPeriod = rate / n;
             const totalPeriods = n * totalYears;
-            const FV = pmt * ((Math.pow(1 + ratePerPeriod, totalPeriods) - 1) / ratePerPeriod);
+            
+            // 加入 0% 防呆
+            const FV = ratePerPeriod === 0 ? pmt * totalPeriods : pmt * ((Math.pow(1 + ratePerPeriod, totalPeriods) - 1) / ratePerPeriod);
             const expectedPayout = (FV * 0.06) / 12;
 
             document.getElementById('txt-win-res-1').innerText = formatCurrency(FV);
@@ -619,7 +620,7 @@
             const tbody = document.getElementById('table-body-winner');
             tbody.innerHTML = '';
             for(let y=1; y<=totalYears; y++) {
-                const yearFV = pmt * ((Math.pow(1 + ratePerPeriod, n * y) - 1) / ratePerPeriod);
+                const yearFV = ratePerPeriod === 0 ? pmt * n * y : pmt * ((Math.pow(1 + ratePerPeriod, n * y) - 1) / ratePerPeriod);
                 const yearPrincipal = pmt * n * y;
                 const yearInterest = yearFV - yearPrincipal;
                 const ageNow = startAge + y;
@@ -664,7 +665,9 @@
 
             const totalMonths = loanYears * 12;
             const mRate = loanRate / 12;
-            const mPayment = loanAmount * (mRate * Math.pow(1 + mRate, totalMonths)) / (Math.pow(1 + mRate, totalMonths) - 1);
+            
+            // 防呆處理利率為 0 
+            const mPayment = mRate === 0 ? loanAmount / totalMonths : loanAmount * (mRate * Math.pow(1 + mRate, totalMonths)) / (Math.pow(1 + mRate, totalMonths) - 1);
             
             // 每月保單收益 ＝ 實際投入金額 × 配息率 ÷ 12
             const mPayout = (investAmount * payoutRate) / 12;
@@ -687,14 +690,21 @@
 
             for(let y = 1; y <= loanYears; y++) {
                 if (isReinvest || !usePayout) {
-                    currentAssetVal = currentAssetVal * (1 + payoutRate);
+                    // 修正為更精準的月複利滾動
+                    currentAssetVal = currentAssetVal * Math.pow(1 + payoutRate/12, 12);
                 }
                 if (hasAddReg && addRegVal > 0) {
                     const rPer = regRate / 12;
-                    const fvAdd = addRegVal * ((Math.pow(1 + rPer, 12 * y) - 1) / rPer);
+                    const fvAdd = rPer === 0 ? addRegVal * 12 * y : addRegVal * ((Math.pow(1 + rPer, 12 * y) - 1) / rPer);
                     currentAssetVal += fvAdd;
                 }
-                let remainingLoan = loanAmount * (Math.pow(1 + mRate, totalMonths) - Math.pow(1 + mRate, 12 * y)) / (Math.pow(1 + mRate, totalMonths) - 1);
+                
+                let remainingLoan = 0;
+                if (mRate === 0) {
+                    remainingLoan = Math.max(0, loanAmount - (loanAmount / totalMonths) * (12 * y));
+                } else {
+                    remainingLoan = loanAmount * (Math.pow(1 + mRate, totalMonths) - Math.pow(1 + mRate, 12 * y)) / (Math.pow(1 + mRate, totalMonths) - 1);
+                }
                 if (y === loanYears) remainingLoan = 0;
 
                 const yearProfit = currentAssetVal - investAmount - (addRegVal * 12 * y);
@@ -748,6 +758,11 @@
                 return { payment: principal * mRate, balance: principal };
             } else if (monthIndex <= totalMonths) {
                 const elapsedAmortMonths = monthIndex - graceMonths;
+                if (mRate === 0) { // 防止 NaN
+                    const mPay = principal / amortMonths;
+                    const balance = principal - (mPay * elapsedAmortMonths);
+                    return { payment: mPay, balance: balance > 0 ? balance : 0 };
+                }
                 const mPay = principal * (mRate * Math.pow(1 + mRate, amortMonths)) / (Math.pow(1 + mRate, amortMonths) - 1);
                 const balance = principal * (Math.pow(1 + mRate, amortMonths) - Math.pow(1 + mRate, elapsedAmortMonths)) / (Math.pow(1 + mRate, amortMonths) - 1);
                 return { payment: mPay, balance: balance };
@@ -812,7 +827,13 @@
                 
                 let mortData = calcLoanDetail(realMortAmt, mortRate, mortYrs, mortGrace, sampleMonth);
                 let credData = calcLoanDetail(realCredAmt, credRate, credYrs, 0, sampleMonth);
-                let polData = calcLoanDetail(realPolAmt, polRate, 10, 0, sampleMonth);
+                
+                // 修正保單貸款邏輯：保單借款特性通常為只繳息不還本
+                let polData = {
+                    payment: realPolAmt * (polRate / 12),
+                    balance: realPolAmt
+                };
+                
                 let finPayment = realFinAmt * (finRate / 12);
                 let finBalance = realFinAmt;
 
@@ -820,7 +841,9 @@
                 let totalDebtBalance = mortData.balance + credData.balance + polData.balance + finBalance;
 
                 let monthlyNetFlow = monthlyDividend - totalMonthlyDebtPay;
-                let netWorth = (currentHouseVal + currentCompVal) - totalDebtBalance;
+                
+                // 修正淨資產公式：補回「配息資產」的本金，才能算出正確總資產
+                let netWorth = (currentHouseVal + currentCompVal + divPool) - totalDebtBalance;
 
                 dataByYear[y] = { houseVal: currentHouseVal, compVal: currentCompVal, debtBal: totalDebtBalance, debtPay: totalMonthlyDebtPay, netFlow: monthlyNetFlow, netWorth: netWorth };
 
@@ -843,8 +866,8 @@
             if(checkYearAfter > 30) checkYearAfter = 30;
             let expAfter = dataByYear[checkYearAfter].debtPay;
 
-            let covBefore = expBefore > 0 ? (monthlyDividend / expBefore) * 100 : 999;
-            let covAfter = expAfter > 0 ? (monthlyDividend / expAfter) * 100 : 999;
+            let covBefore = expBefore > 0 ? (monthlyDividend / expBefore) * 100 : (monthlyDividend > 0 ? 999 : 0);
+            let covAfter = expAfter > 0 ? (monthlyDividend / expAfter) * 100 : (monthlyDividend > 0 ? 999 : 0);
 
             document.getElementById('dash-total-invest').innerText = formatCurrency(totalInvest);
             document.getElementById('dash-monthly-income').innerText = "+" + formatCurrency(monthlyDividend);
@@ -872,7 +895,7 @@
             cardsContainer.innerHTML = '';
             milestones.forEach(yr => {
                 let d = dataByYear[yr];
-                let cov = d.debtPay > 0 ? (monthlyDividend / d.debtPay)*100 : 999;
+                let cov = d.debtPay > 0 ? (monthlyDividend / d.debtPay)*100 : (monthlyDividend > 0 ? 999 : 0);
                 let covText = cov === 999 ? "∞%" : cov.toFixed(0) + "%";
                 cardsContainer.innerHTML += `
                     <div class="bg-white border border-[#e3dac9] rounded-xl p-3 text-center shadow-sm">
@@ -909,7 +932,8 @@
             const mRateAfter = rateAfter / 12;
             let monthlyAfter = 0;
             if (amortMonths > 0) {
-                monthlyAfter = principal * (mRateAfter * Math.pow(1 + mRateAfter, amortMonths)) / (Math.pow(1 + mRateAfter, amortMonths) - 1);
+                // 防呆處理
+                monthlyAfter = mRateAfter === 0 ? principal / amortMonths : principal * (mRateAfter * Math.pow(1 + mRateAfter, amortMonths)) / (Math.pow(1 + mRateAfter, amortMonths) - 1);
             } else {
                 monthlyAfter = principal * mRateAfter;
             }
@@ -932,14 +956,16 @@
             const n = 12;
             if (PMT <= 0 || t <= 0) return;
             const rPer = r / n;
-            const FV = PMT * ((Math.pow(1 + rPer, n * t) - 1) / rPer);
+            
+            // 防呆處理
+            const FV = rPer === 0 ? PMT * n * t : PMT * ((Math.pow(1 + rPer, n * t) - 1) / rPer);
             const prin = PMT * n * t;
             document.getElementById('res-reg-total').innerText = formatCurrency(FV);
 
             const tbody = document.getElementById('table-body-regular');
             tbody.innerHTML = '';
             for (let y = 1; y <= t; y++) {
-                const yFV = PMT * ((Math.pow(1 + rPer, n * y) - 1) / rPer);
+                const yFV = rPer === 0 ? PMT * n * y : PMT * ((Math.pow(1 + rPer, n * y) - 1) / rPer);
                 const yPrin = PMT * n * y;
                 tbody.innerHTML += `<tr class="interactive-row"><td class="px-4 py-3">第 ${y} 年 (${currentAge+y} 歲)</td><td class="px-4 py-3">${formatCurrency(yPrin)}</td><td class="px-4 py-3">${formatCurrency(yFV-yPrin)}</td><td class="px-4 py-3 font-semibold text-[#b65a3c]">${formatCurrency(yFV)}</td></tr>`;
             }
@@ -950,7 +976,9 @@
             const preR = (parseFloat(document.getElementById('ret-pre-rate').value) || 0) / 100;
             const target = (cost * 12) / 0.04;
             const rPer = preR / 12;
-            const pmt = target / ((Math.pow(1 + rPer, 300) - 1) / rPer);
+            
+            // 防呆處理
+            const pmt = rPer === 0 ? target / 300 : target / ((Math.pow(1 + rPer, 300) - 1) / rPer);
             document.getElementById('res-ret-monthly-save').innerText = formatCurrency(pmt) + " (每月需存)";
         }
 
